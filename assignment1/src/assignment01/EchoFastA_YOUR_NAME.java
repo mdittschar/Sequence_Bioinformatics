@@ -1,7 +1,8 @@
 package assignment01;
 
 import java.io.IOException;
-import assignment01.FastA_YOUR_NAME;
+
+import static assignment01.FastA_YOUR_NAME.read;
 
 /**
  * EchoFastA_YOUR_NAME
@@ -13,7 +14,8 @@ public class EchoFastA_YOUR_NAME {
 		if(args.length<1 || args.length>2)
 			throw new IOException("Usage: EchoFastA_YOUR_NAME infile [outFile]");
 		else{
-		assignment01.FastA_YOUR_NAME.read("dna.fasta");}
+
+		read("dna.fasta");}
 		// todo: read FastA records from infile and echo to outfile or stdout (console)
 
 	}

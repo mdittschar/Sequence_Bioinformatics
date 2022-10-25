@@ -9,7 +9,13 @@ import java.util.Collection;
  * Author(s): YOUR_NAME
  * Sequence Bioinformatics, WS 22/23
  */
+
+
 public class FastA_YOUR_NAME {
+	public static void main(String[] args) throws IOException {
+		read("dna.fasta");
+
+	}
 
 	public static void write(Collection<Pair> list, String fileName) throws IOException {
 		try(var w=(fileName!=null?new FileWriter(fileName):new OutputStreamWriter(System.out))) {
@@ -21,13 +27,18 @@ public class FastA_YOUR_NAME {
 		var list=new ArrayList<Pair>();
 		try(var r=new BufferedReader(new FileReader(fileName))) {
 			// todo: read in pairs in FastA format here
-			StringBuilder content = new StringBuilder();
 			String line;
 			while ((line = r.readLine()) != null) {
-				content.append(line);
-				content.append(System.lineSeparator());
+				String header = "";
+				String sequence = "";
+				if (line.startsWith(">")){
+					header = line.substring(1);
+					sequence = r.readLine();
+				}
+				Pair pair = new Pair(header, sequence);
+				list.add(pair);
+
 			}
-			System.out.println(content);
 		}
 
 		return list;
@@ -38,4 +49,8 @@ public class FastA_YOUR_NAME {
 	 */
 	public static record Pair(String header, String sequence) {
 	}
+
+
 }
+
+
