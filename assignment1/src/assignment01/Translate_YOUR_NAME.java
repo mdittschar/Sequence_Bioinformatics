@@ -16,7 +16,7 @@ public class Translate_YOUR_NAME {
 
 		// todo: read in FastA pairs
 		var list = assignment01.FastA_YOUR_NAME.read(args[0]);
-
+		System.out.println(list.get(0).sequence());
 		// todo: compute translated sequences using translate(sequence) method defined below
 		var translated=new ArrayList<assignment01.FastA_YOUR_NAME.Pair>();
 
