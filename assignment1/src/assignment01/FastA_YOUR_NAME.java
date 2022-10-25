@@ -13,13 +13,23 @@ import java.util.Collection;
 
 public class FastA_YOUR_NAME {
 	public static void main(String[] args) throws IOException {
-		read("dna.fasta");
+		ArrayList<Pair> example_list = new ArrayList<Pair>();
+		example_list = read("dna.fasta");
+		write(example_list, "test_output.fasta");
 
 	}
-
-	public static void write(Collection<Pair> list, String fileName) throws IOException {
+	//Collection
+	public static void write(ArrayList<Pair> list, String fileName) throws IOException {
 		try(var w=(fileName!=null?new FileWriter(fileName):new OutputStreamWriter(System.out))) {
 			// todo: write out pairs in FastA format here
+			//while ((line = r.readLine()) != null) {
+			for (int i = 0; i < list.size(); i++){
+				w.write(">");
+				w.write(list.get(i).header);
+				w.write(String.format("%n"));
+				w.write(list.get(i).sequence);
+				w.write(String.format("%n"));
+			}
 		}
 	}
 
