@@ -20,6 +20,18 @@ public class Translate_YOUR_NAME {
 
 		String sequence = list.get(0).sequence();
 		sequence = sequence.replaceAll("\\s+","");
+		translate(sequence);
+
+		// todo: compute translated sequences using translate(sequence) method defined below
+		var translated=new ArrayList<assignment01.FastA_YOUR_NAME.Pair>();
+
+		// todo: write translated sequences
+	}
+
+	public static String translate(String sequence) {
+		//Source for bacterial genetic code:
+		// https://en.wikipedia.org/wiki/Bacterial,_archaeal_and_plant_plastid_code
+		var buf=new StringBuilder();
 		String[] peptides = new String[sequence.length()];
 		for (int i =0; i < sequence.length()/3; i++){
 			String codon = new String(sequence.substring(i*3, (i+1)*3));
@@ -43,17 +55,7 @@ public class Translate_YOUR_NAME {
 				System.out.println("I!");
 			}
 		}
-		// todo: compute translated sequences using translate(sequence) method defined below
-		var translated=new ArrayList<assignment01.FastA_YOUR_NAME.Pair>();
-
-		// todo: write translated sequences
-	}
-
-	public static String translate(String sequence) {
-		var buf=new StringBuilder();
-
 		// todo: implement translation of sequence
-
 		return buf.toString();
 	}
 }
