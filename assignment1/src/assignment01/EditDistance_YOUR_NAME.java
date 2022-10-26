@@ -17,10 +17,15 @@ public class EditDistance_YOUR_NAME {
             throw new IOException("Usage: EditDistance_YOUR_NAME infile [outFile]");
 
         // todo: implement input of FastA records
-
+        var list = assignment01.FastA_YOUR_NAME.read(args[0]);
         // todo: check that all input sequences have the same length, otherwise throw a new IOException("Different lengths");
-
-         try (Writer w = (args.length == 2 ? new FileWriter(args[1]) : new OutputStreamWriter(System.out))) {
+        int check_size = list.get(0).sequence().length();
+        for (int i=1; i< list.size();i++){
+            if (list.get(i).sequence().length() != check_size)
+                throw new IOException("Different lengths");
+        }
+        computeEditDistance(list.get(0).sequence(), list.get(1).sequence());
+        try (Writer w = (args.length == 2 ? new FileWriter(args[1]) : new OutputStreamWriter(System.out))) {
              // todo: compute distance between any two sequences, using method computeEditDistance(x,y) defined below
              // todo: write distance matrix
 
@@ -34,6 +39,15 @@ public class EditDistance_YOUR_NAME {
 
     private static int computeEditDistance(String x, String y) {
         // todo: implement computation of edit distance
-        return 0;
+        int dist = 0;
+        char[] xchar = x.toCharArray();
+        char[] ychar = y.toCharArray();
+        for (int i=0; i<xchar.length; i++){
+            if (xchar[i] != ychar[i]){
+                dist = dist + 1;
+            }
+        }
+        System.out.println(dist);
+        return dist;
     }
 }
