@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Arrays;
 
 /**
  * EditDistance_YOUR_NAME
@@ -24,7 +25,13 @@ public class EditDistance_YOUR_NAME {
             if (list.get(i).sequence().length() != check_size)
                 throw new IOException("Different lengths");
         }
-        computeEditDistance(list.get(0).sequence(), list.get(1).sequence());
+        Integer[][] edit_matrix = new Integer[list.size()][list.size()];
+        for (int i=0; i<list.size();i++){
+            for (int j=0; j<list.size();j++) {
+                edit_matrix[i][j] = computeEditDistance(list.get(i).sequence(), list.get(j).sequence());
+            }
+        }
+        System.out.println(Arrays.toString(edit_matrix));
         try (Writer w = (args.length == 2 ? new FileWriter(args[1]) : new OutputStreamWriter(System.out))) {
              // todo: compute distance between any two sequences, using method computeEditDistance(x,y) defined below
              // todo: write distance matrix
