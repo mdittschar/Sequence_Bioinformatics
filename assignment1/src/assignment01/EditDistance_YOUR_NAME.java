@@ -31,11 +31,19 @@ public class EditDistance_YOUR_NAME {
                 edit_matrix[i][j] = computeEditDistance(list.get(i).sequence(), list.get(j).sequence());
             }
         }
-        System.out.println(Arrays.toString(edit_matrix));
+        System.out.println("Edit Distance Matrix: ");
+        for(Integer[] i : edit_matrix) {
+           for(int j : i) {
+               //print row
+               System.out.print(j + "\t");
+           }
+           // new row
+           System.out.println();
+        }
+        //System.out.println(Arrays.deepToString(edit_matrix));
         try (Writer w = (args.length == 2 ? new FileWriter(args[1]) : new OutputStreamWriter(System.out))) {
              // todo: compute distance between any two sequences, using method computeEditDistance(x,y) defined below
              // todo: write distance matrix
-
          }
         // example of format:
         // a 0 1 2 3
@@ -54,7 +62,7 @@ public class EditDistance_YOUR_NAME {
                 dist = dist + 1;
             }
         }
-        System.out.println(dist);
+       // System.out.print(dist + " ");
         return dist;
     }
 }
