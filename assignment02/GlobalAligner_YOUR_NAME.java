@@ -15,7 +15,7 @@ public class GlobalAligner_YOUR_NAME {
 			throw new IOException("Usage: GlobalAligner_YOUR_NAME infile [quadraticSpace|linearSpace|noDP]");
 
 		var list=FastA_YOUR_NAME.read(args[0]);
-
+		runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
 		if(list.size()!=2)
 			throw new IOException("Wrong number of input sequences: "+list.size());
 
@@ -41,6 +41,10 @@ public class GlobalAligner_YOUR_NAME {
 		// initialization
 		char[] xchar = x.sequence().toCharArray();
 		char[] ychar = y.sequence().toCharArray();
+		int match = 1;
+		int mismatch = -1;
+		int gap = 1;
+
 
 		Integer[][] nw_matrix = new Integer[xchar.length][ychar.length];
 		for (int i=0; i<xchar.length; i++){
@@ -48,6 +52,32 @@ public class GlobalAligner_YOUR_NAME {
 		}
 		for (int j=0; j<xchar.length; j++){
 			nw_matrix[0][j] = -j;
+		}
+		int up = 0;
+		int left = 0;
+		int diagonal = 0;
+		// matrix filling
+		for (int i=1; i<xchar.length;i++){
+			for (int j=1; j<ychar.length; j++){
+
+				if (xchar[i] == ychar[j]){
+					diagonal = match ;
+				}
+				else{
+					diagonal = mismatch;
+				}
+				up = nw_matrix[i-1][j] - gap;
+				left = nw_matrix[i][j-1] - gap;
+				nw_matrix[i][j] = Math.max(up, Math.max(left, diagonal));
+			}
+		}
+		for(Integer[] i : nw_matrix) {
+			for(int j : i) {
+				//print row
+				System.out.print(j + "\t");
+			}
+			// new row
+			System.out.println();
 		}
 	}
 
