@@ -31,7 +31,7 @@ public class Translate_YOUR_NAME {
 
 	public static String translate(String sequence) {
 		//Source for bacterial genetic code:
-		// https://en.wikipedia.org/wiki/Bacterial,_archaeal_and_plant_plastid_code
+		// https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables#Standard_DNA_codon_table
 		var buf=new StringBuilder();
 		for (int i =0; i < sequence.length()/3; i++){
 			String codon = new String(sequence.substring(i*3, (i+1)*3));

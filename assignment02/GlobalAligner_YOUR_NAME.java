@@ -1,5 +1,6 @@
 package assignment02;
 
+
 import assignment01.FastA_YOUR_NAME;
 
 import java.io.IOException;
@@ -37,6 +38,17 @@ public class GlobalAligner_YOUR_NAME {
 	 */
 	public static void runNeedlemanWunschQuadraticSpace(FastA_YOUR_NAME.Pair x, FastA_YOUR_NAME.Pair y) {
 		// todo: implement, Assignment 2.1
+		// initialization
+		char[] xchar = x.sequence().toCharArray();
+		char[] ychar = y.sequence().toCharArray();
+
+		Integer[][] nw_matrix = new Integer[xchar.length][ychar.length];
+		for (int i=0; i<xchar.length; i++){
+			nw_matrix[i][0] = -i;
+		}
+		for (int j=0; j<xchar.length; j++){
+			nw_matrix[0][j] = -j;
+		}
 	}
 
 	/**
