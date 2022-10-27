@@ -2,17 +2,17 @@ package assignment02;
 
 
 import java.io.IOException;
-import assignment01.FastA_YOUR_NAME;
+import assignment01.FastA_Auckenthaler_Dittschar;
 /**
- * GlobalAligner_YOUR_NAME
+ * GlobalAligner_Auckenthaler_Dittschar
  * Sequence Bioinformatics, WS 22/23
  */
-public class GlobalAligner_YOUR_NAME {
+public class GlobalAligner_Auckenthaler_Dittschar {
 	public static void main(String[] args) throws IOException {
 		if(args.length<1 || args.length>2)
-			throw new IOException("Usage: GlobalAligner_YOUR_NAME infile [quadraticSpace|linearSpace|noDP]");
+			throw new IOException("Usage: GlobalAligner_Auckenthaler_Dittschar infile [quadraticSpace|linearSpace|noDP]");
 
-		var list=FastA_YOUR_NAME.read(args[0]);
+		var list=FastA_Auckenthaler_Dittschar.read(args[0]);
 		runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
 		if(list.size()!=2)
 			throw new IOException("Wrong number of input sequences: "+list.size());
@@ -34,7 +34,7 @@ public class GlobalAligner_YOUR_NAME {
 	 * @param x
 	 * @param y
 	 */
-	public static void runNeedlemanWunschQuadraticSpace(FastA_YOUR_NAME.Pair x, FastA_YOUR_NAME.Pair y) {
+	public static void runNeedlemanWunschQuadraticSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement, Assignment 2.1
 		// initialization
 		char[] xchar = x.sequence().toCharArray();
@@ -86,7 +86,7 @@ public class GlobalAligner_YOUR_NAME {
 	 * @param x
 	 * @param y
 	 */
-	public static void runNeedlemanWunschLinearSpace(FastA_YOUR_NAME.Pair x, FastA_YOUR_NAME.Pair y) {
+	public static void runNeedlemanWunschLinearSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement, Assignment 2.2
 	}
 
@@ -97,7 +97,7 @@ public class GlobalAligner_YOUR_NAME {
 	 * @param x
 	 * @param y
 	 */
-	public static void runNeedlemanWunschRecursively(FastA_YOUR_NAME.Pair x, FastA_YOUR_NAME.Pair y) {
+	public static void runNeedlemanWunschRecursively(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement using recursive function computeF, , Assignment 2.3
 	}
 

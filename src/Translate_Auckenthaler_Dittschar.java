@@ -5,22 +5,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Translate_YOUR_NAME
+ * Translate_Auckenthaler_Dittschar
  * Author(s): YOUR_NAME
  * Sequence Bioinformatics, WS 22/23
  */
-public class Translate_YOUR_NAME {
+public class Translate_Auckenthaler_Dittschar {
 	public static void main(String[] args) throws IOException {
 		if (args.length < 1 || args.length > 2)
-			throw new IOException("Usage: Translate_YOUR_NAME infile [outFile]");
+			throw new IOException("Usage: Translate_Auckenthaler_Dittschar infile [outFile]");
 
-		var translated=new ArrayList<assignment01.FastA_YOUR_NAME.Pair>();
+		var translated=new ArrayList<assignment01.FastA_Auckenthaler_Dittschar.Pair>();
 		// todo: read in FastA pairs
-		var list = assignment01.FastA_YOUR_NAME.read(args[0]);
+		var list = assignment01.FastA_Auckenthaler_Dittschar.read(args[0]);
 		for (int i =0; i < list.size(); i++){
 			String sequence = list.get(i).sequence();
 			sequence = sequence.replaceAll("\\s+","");
-			translated.add(new FastA_YOUR_NAME.Pair(list.get(i).header(), translate(sequence)));
+			translated.add(new FastA_Auckenthaler_Dittschar.Pair(list.get(i).header(), translate(sequence)));
 		}
 
 		// todo: compute translated sequences using translate(sequence) method defined below

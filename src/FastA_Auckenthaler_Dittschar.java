@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * FastA_YOUR_NAME
+ * FastA_Auckenthaler_Dittschar
  * Author(s): YOUR_NAME
  * Sequence Bioinformatics, WS 22/23
  */
 
 
-public class FastA_YOUR_NAME {
+public class FastA_Auckenthaler_Dittschar {
 
 	//Collection
 	public static void write(ArrayList<Pair> list, String fileName) throws IOException {

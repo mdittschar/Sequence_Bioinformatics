@@ -7,18 +7,18 @@ import java.io.Writer;
 import java.util.Arrays;
 
 /**
- * EditDistance_YOUR_NAME
+ * EditDistance_Auckenthaler_Dittschar
  * Author(s): YOUR_NAME
  * Sequence Bioinformatics, WS 22/23
  */
-public class EditDistance_YOUR_NAME {
+public class EditDistance_Auckenthaler_Dittschar {
 
     public static void main(String[] args) throws IOException {
         if (args.length < 1 || args.length > 2)
-            throw new IOException("Usage: EditDistance_YOUR_NAME infile [outFile]");
+            throw new IOException("Usage: EditDistance_Auckenthaler_Dittschar infile [outFile]");
 
         // todo: implement input of FastA records
-        var list = assignment01.FastA_YOUR_NAME.read(args[0]);
+        var list = assignment01.FastA_Auckenthaler_Dittschar.read(args[0]);
         // todo: check that all input sequences have the same length, otherwise throw a new IOException("Different lengths");
         int check_size = list.get(0).sequence().length();
         for (int i=1; i< list.size();i++){
