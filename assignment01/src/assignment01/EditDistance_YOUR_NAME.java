@@ -32,13 +32,16 @@ public class EditDistance_YOUR_NAME {
             }
         }
         System.out.println("Edit Distance Matrix: ");
+        int k = 0;
         for(Integer[] i : edit_matrix) {
-           for(int j : i) {
-               //print row
-               System.out.print(j + "\t");
-           }
-           // new row
-           System.out.println();
+            System.out.print(list.get(k).header()+ "\t");
+            for(int j : i) {
+                //print row
+                System.out.print(j + "\t");
+            }
+            // new row
+            System.out.println();
+            k = k+1;
         }
         //System.out.println(Arrays.deepToString(edit_matrix));
         try (Writer w = (args.length == 2 ? new FileWriter(args[1]) : new OutputStreamWriter(System.out))) {
