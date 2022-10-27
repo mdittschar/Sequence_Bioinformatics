@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 /**
  * Translate_Auckenthaler_Dittschar
- * Author(s): YOUR_NAME
+ * Author(s): Clarissa Auckenthaler & Marina Dittschar
  * Sequence Bioinformatics, WS 22/23
  */
 public class Translate_Auckenthaler_Dittschar {

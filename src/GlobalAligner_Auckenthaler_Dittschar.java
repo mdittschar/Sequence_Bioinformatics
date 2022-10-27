@@ -5,6 +5,7 @@ import java.io.IOException;
 import assignment01.FastA_Auckenthaler_Dittschar;
 /**
  * GlobalAligner_Auckenthaler_Dittschar
+ * Autors: Clarissa Auckenthaler & Marina Dittschar
  * Sequence Bioinformatics, WS 22/23
  */
 public class GlobalAligner_Auckenthaler_Dittschar {

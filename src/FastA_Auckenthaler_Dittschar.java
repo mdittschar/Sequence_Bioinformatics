@@ -6,7 +6,7 @@ import java.util.Collection;
 
 /**
  * FastA_Auckenthaler_Dittschar
- * Author(s): YOUR_NAME
+ * Author(s): Clarissa Auckenthaler & Marina Dittschar
  * Sequence Bioinformatics, WS 22/23
  */
 

@@ -7,7 +7,7 @@ import static assignment01.FastA_Auckenthaler_Dittschar.read;
 
 /**
  * EchoFastA_Auckenthaler_Dittschar
- * Author(s): YOUR_NAME
+ * Author(s): Clarissa Auckenthaler & Marina Dittschar
  * Sequence Bioinformatics, WS 22/23
  */
 public class EchoFastA_Auckenthaler_Dittschar {
