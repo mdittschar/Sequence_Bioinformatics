@@ -1,10 +1,8 @@
 package assignment02;
 
 
-import assignment01.FastA_YOUR_NAME;
-
 import java.io.IOException;
-
+import assignment01.FastA_YOUR_NAME;
 /**
  * GlobalAligner_YOUR_NAME
  * Sequence Bioinformatics, WS 22/23
