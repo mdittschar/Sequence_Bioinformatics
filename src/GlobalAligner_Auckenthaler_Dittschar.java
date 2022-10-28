@@ -15,7 +15,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 		var list=FastA_Auckenthaler_Dittschar.read(args[0]);
 		runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
-		if(list.size()!=2)
+		sif(list.size()!=2)
 			throw new IOException("Wrong number of input sequences: "+list.size());
 
 		var mode=(args.length==2?args[1]:"quadraticSpace");
@@ -46,6 +46,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 
 		Integer[][] nw_matrix = new Integer[xchar.length][ychar.length];
+		Integer[][] traceback_matrix = new Integer[xchar.length][ychar.length];
 		for (int i=0; i<xchar.length; i++){
 			nw_matrix[i][0] = -i;
 		}
@@ -68,16 +69,13 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 				up = nw_matrix[i-1][j] - gap;
 				left = nw_matrix[i][j-1] - gap;
 				nw_matrix[i][j] = Math.max(up, Math.max(left, diagonal));
+				Integer[] traceback_arr = {up, left, diagonal};
+				// no function named argmax - we'll have to write our own
+				// traceback_matrix[i][j] = argmax(traceback_arr);
 			}
 		}
-		for(Integer[] i : nw_matrix) {
-			for(int j : i) {
-				//print row
-				System.out.print(j + "\t");
-			}
-			// new row
-			System.out.println();
-		}
+		prettyPrint(nw_matrix);
+
 	}
 
 	/**
@@ -100,6 +98,16 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 */
 	public static void runNeedlemanWunschRecursively(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement using recursive function computeF, , Assignment 2.3
+	}
+	public static void prettyPrint(Integer[][] nw_matrix){
+		for(Integer[] i : nw_matrix) {
+			for(int j : i) {
+				//print row
+				System.out.print(j + "\t");
+			}
+			// new row
+			System.out.println();
+		}
 	}
 
 	public static int computeF(int i,int j) {
