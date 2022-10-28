@@ -15,7 +15,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 		var list=FastA_Auckenthaler_Dittschar.read(args[0]);
 		runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
-		sif(list.size()!=2)
+		if(list.size()!=2)
 			throw new IOException("Wrong number of input sequences: "+list.size());
 
 		var mode=(args.length==2?args[1]:"quadraticSpace");
