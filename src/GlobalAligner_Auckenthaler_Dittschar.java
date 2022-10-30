@@ -45,6 +45,8 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	public static void runNeedlemanWunschQuadraticSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement, Assignment 2.1
 		// initialization
+		long start = System.currentTimeMillis();
+
 		char[] xchar = x.sequence().toCharArray();
 		char[] ychar = y.sequence().toCharArray();
 		int match = 1;
@@ -120,6 +122,8 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		System.out.println(alignedseq1);
 		System.out.println(alignedseq2);
 
+		long stop = System.currentTimeMillis();
+		System.out.println("Total Runtime: "+ (stop-start)+ " ms");
 	}
 
 	/**
@@ -130,6 +134,8 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param y
 	 */
 	public static void runNeedlemanWunschLinearSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
+
+
 		// todo: implement, Assignment 2.2
 		char[] xchar = x.sequence().toCharArray();
 		char[] ychar = y.sequence().toCharArray();
@@ -147,8 +153,12 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 */
 	public static void runNeedlemanWunschRecursively(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement using recursive function computeF, , Assignment 2.3
+		long start = System.currentTimeMillis();
+
+		//wahrscheinlich falsch, da Matrix benutzt wird bitte unbedingt prüfen!
 		char[] xchar = x.sequence().toCharArray();
-		char[] ychar = y.sequence().toCharArray();
+		char[] ychar =
+				y.sequence().toCharArray();
 		int match = 1;
 		int mismatch = -1;
 		int gap = 1;
@@ -187,6 +197,8 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 			}
 		}
 		System.out.println("runNeedlemanWunschRecursively alignment score: "+maxAlign[xlength][ylength]);
+		long stop = System.currentTimeMillis();
+		System.out.println("Total Runtime: "+ (stop-start)+ " ms");
 	}
 
 
