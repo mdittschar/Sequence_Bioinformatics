@@ -2,8 +2,8 @@ package assignment02;
 
 
 import java.io.IOException;
-import assignment01.FastA_Auckenthaler_Dittschar;
 import java.util.Arrays;
+import assignment01.FastA_Auckenthaler_Dittschar;
 /**
  * GlobalAligner_Auckenthaler_Dittschar
  * Autors: Clarissa Auckenthaler & Marina Dittschar
@@ -16,9 +16,9 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 		var list=FastA_Auckenthaler_Dittschar.read(args[0]);
 
-		runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
-		runNeedlemanWunschLinearSpace(list.get(0),list.get(1));
-		runNeedlemanWunschRecursively(list.get(0),list.get(1));
+		//runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
+		//runNeedlemanWunschLinearSpace(list.get(0),list.get(1));
+		//runNeedlemanWunschRecursively(list.get(0),list.get(1));
 
 
 
@@ -27,12 +27,12 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 			throw new IOException("Wrong number of input sequences: "+list.size());
 
 
-		var mode=(args.length==2?args[1]:"linearSpace");
+		var mode=(args.length==2?args[1]:"quadraticSpace");
 
 		switch(mode) {
-			case "quadraticSpace" -> runNeedlemanWunschQuadraticSpace(list.get(1),list.get(0));
-			case "linearSpace" ->runNeedlemanWunschLinearSpace(list.get(1),list.get(0));
-			case "noDP" ->runNeedlemanWunschQuadraticSpace(list.get(1),list.get(0));
+			case "quadraticSpace" -> runNeedlemanWunschQuadraticSpace(list.get(0),list.get(1));
+			case "linearSpace" ->runNeedlemanWunschLinearSpace(list.get(0),list.get(1));
+			case "noDP" ->runNeedlemanWunschQuadraticSpace(list.get(0),list.get(1));
 			default -> throw new IOException("Unknown mode: "+mode);
 		}
 	}
@@ -44,7 +44,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param x
 	 * @param y
 	 */
-	public static void runNeedlemanWunschQuadraticSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
+	public static void runNeedlemanWunschQuadraticSpace(assignment01.FastA_Auckenthaler_Dittschar.Pair x, assignment01.FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement, Assignment 2.1
 		// initialization
 		long start = System.currentTimeMillis();
@@ -135,7 +135,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param x
 	 * @param y
 	 */
-	public static void runNeedlemanWunschLinearSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
+	public static void runNeedlemanWunschLinearSpace(assignment01.FastA_Auckenthaler_Dittschar.Pair x, assignment01.FastA_Auckenthaler_Dittschar.Pair y) {
 
 		// todo: implement, Assignment 2.2
 		char[] xchar = x.sequence().toCharArray();
@@ -152,27 +152,27 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		int c = xlength/2;
 		int matchscore = 0;
 		// initialization of first column
-		for (int j = 0; j < ylength; j++){
+		for (int j = 0; j < ylength+1; j++){
 			P[j] = - j*gap;
 		}
+
 		// starting with second column, fill the current variable columns
-		for (int i=1; i<xlength; i++){
+
+		for (int i=1; i<xlength+1; i++){
 			Q[0] = -i*gap;
-			for (int j = 1; j < ylength; j++){
+
+			for (int j = 1; j < ylength+1; j++){
 				if (xchar[i - 1] == ychar[j - 1]){
 					matchscore = match;
 				}
 				else{
 					matchscore = mismatch;
 				}
-
-				Q[j] = Math.max(P[j] - gap, Math.max(Q[j-1] - gap, P[j - 1] + matchscore));
-			}
-			P = Q;
-
+				Q[j] = Math.max(P[j] - gap, Math.max(Q[j-1] - gap, P[j - 1] + matchscore));}
+			P = Q.clone();
 		}
 		System.out.println(Arrays.toString(Q));
-		System.out.println("Optimal score: "+ Q[ylength - 1]);
+		System.out.println("Optimal score Needleman-Wunsch linear space: "+ Q[ylength]);
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param x
 	 * @param y
 	 */
-	public static void runNeedlemanWunschRecursively(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
+	public static void runNeedlemanWunschRecursively(assignment01.FastA_Auckenthaler_Dittschar.Pair x, assignment01.FastA_Auckenthaler_Dittschar.Pair y) {
 		// todo: implement using recursive function computeF, Assignment 2.3
 		long start = System.currentTimeMillis();
 
@@ -201,7 +201,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		//System.out.println(xlength);
 		//System.out.println(ylength);
 		// 6 for less time
-		int bestscore= computeF(6, 6, ychar, xchar);
+		int bestscore= computeF(10, 10, ychar, xchar);
 		long stop = System.currentTimeMillis();
 		System.out.println("Optimal score Needleman-Wunsch recursively F(i,j): "+ bestscore);
 
