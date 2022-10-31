@@ -17,8 +17,10 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		var list=FastA_Auckenthaler_Dittschar.read(args[0]);
 
 		runNeedlemanWunschQuadraticSpace(list.get(0), list.get(1));
-
+		runNeedlemanWunschLinearSpace(list.get(0),list.get(1));
 		runNeedlemanWunschRecursively(list.get(0),list.get(1));
+
+
 
 
 		if(list.size()!=2)
@@ -135,13 +137,42 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 */
 	public static void runNeedlemanWunschLinearSpace(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
 
-
 		// todo: implement, Assignment 2.2
 		char[] xchar = x.sequence().toCharArray();
 		char[] ychar = y.sequence().toCharArray();
+		int xlength = xchar.length;
+		int ylength = ychar.length;
 		int match = 1;
 		int mismatch = -1;
 		int gap = 1;
+		// matrix initialization
+		// "qurrent" column
+		Integer[] Q = new Integer[ylength + 1];
+		Integer[] P = new Integer[ylength + 1];
+		int c = xlength/2;
+		int matchscore = 0;
+		// initialization of first column
+		for (int j = 0; j < ylength; j++){
+			P[j] = - j*gap;
+		}
+		// starting with second column, fill the current variable columns
+		for (int i=1; i<xlength; i++){
+			Q[0] = -i*gap;
+			for (int j = 1; j < ylength; j++){
+				if (xchar[i - 1] == ychar[j - 1]){
+					matchscore = match;
+				}
+				else{
+					matchscore = mismatch;
+				}
+
+				Q[j] = Math.max(P[j] - gap, Math.max(Q[j-1] - gap, P[j - 1] + matchscore));
+			}
+			P = Q;
+
+		}
+		System.out.println(Arrays.toString(Q));
+		System.out.println("Optimal score: "+ Q[ylength - 1]);
 	}
 
 	/**
@@ -152,7 +183,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param y
 	 */
 	public static void runNeedlemanWunschRecursively(FastA_Auckenthaler_Dittschar.Pair x, FastA_Auckenthaler_Dittschar.Pair y) {
-		// todo: implement using recursive function computeF, , Assignment 2.3
+		// todo: implement using recursive function computeF, Assignment 2.3
 		long start = System.currentTimeMillis();
 
 
@@ -169,8 +200,8 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		int ylength = ychar.length;
 		//System.out.println(xlength);
 		//System.out.println(ylength);
-
-		int bestscore= computeF(20, 20, ychar, xchar);
+		// 6 for less time
+		int bestscore= computeF(6, 6, ychar, xchar);
 		long stop = System.currentTimeMillis();
 		System.out.println("Optimal score Needleman-Wunsch recursively F(i,j): "+ bestscore);
 
@@ -179,6 +210,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 
 	public static void prettyPrint(Integer[][] nw_matrix){
+		// print a neater matrix representation
 		for(Integer[] i : nw_matrix) {
 			for(int j : i) {
 				//print row
@@ -201,17 +233,15 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	}
 
 	public static int computeF(int i,int j, char[] xchar, char[] ychar) {
+		// recursive function
 		if (i==0 && j==0){
-			//System.out.println("Ecke oben links");
 			return 0;
 
 		}
 		else if (i==0){
-			//System.out.println("Oberste Zeile");
 			return -j;
 		}
 		else if (j==0){
-			//System.out.println("Linke Spalte");
 			return -i;
 		}
 		else{
@@ -222,12 +252,9 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 			else{
 				matchscore=-1;
 			}
-			//System.out.println("Zeile " + i + " Spalte " + j);
 			int bestscore = 0;
 			bestscore = Math.max(computeF(i-1, j-1, xchar, ychar) + matchscore, Math.max(computeF(i - 1,j, xchar, ychar)- 1 , computeF(i, j - 1, xchar, ychar) - 1));
-			//System.out.println("Best score at Column "+j + "and row "+ i + ": "+ bestscore);
 			return bestscore;
 		}
-		// todo: implement
 	}
 }
