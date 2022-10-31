@@ -92,7 +92,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 			}
 		}
 
-		prettyPrint(nw_matrix);
+		//prettyPrint(nw_matrix);
 
 		//generating alignment sequence
 		int i = traceback_matrix.length-1;
@@ -118,12 +118,12 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 				i -= 1;
 			}
 		}
-		System.out.println("The alignment score is " + nw_matrix[nw_matrix.length-1][nw_matrix[0].length-1]);
+		long stop = System.currentTimeMillis();
+		System.out.println("Optimal score Needleman-Wunsch quadratic space F(i,j): " + nw_matrix[nw_matrix.length-1][nw_matrix[0].length-1]);
 		System.out.println(alignedseq1);
 		System.out.println(alignedseq2);
 
-		long stop = System.currentTimeMillis();
-		System.out.println("Total Runtime: "+ (stop-start)+ " ms");
+		System.out.println("Total Runtime Needleman-Wunsch quadratic space: "+ (stop-start)+ " ms");
 	}
 
 	/**
@@ -167,41 +167,14 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 		int xlength = xchar.length;
 		int ylength = ychar.length;
-		System.out.println(xlength);
-		System.out.println(ylength);
+		//System.out.println(xlength);
+		//System.out.println(ylength);
 
-		computeF(6, 6, ychar, xchar);
-		//int[][] maxAlign = new int[xlength+1][ylength+1];
-
-/*		for(int i = 0; i < xlength+1; i++) {
-			for( int j= 0; j< ylength+1; j++){
-				if(i == 0 && j== 0){
-					maxAlign[i][j]= 0;
-				}
-				else if (i== 0 && j!=0)
-					maxAlign[i][j]= -j * gap;
-				else if (i!= 0 && j==0)
-					maxAlign[j][i] = -i* gap;
-
-				else{
-					if (xchar[i-1] == ychar[j-1]){
-						matchscore =  match;
-					}
-					else{
-						matchscore = mismatch;
-					}
-
-					int top_left= maxAlign[i-1][j-1]+ matchscore;
-					int top = maxAlign[i][j-1]+gap;
-					int left = maxAlign[i-1][j]+gap;
-
-					maxAlign[i][j]= Math.max(top_left, Math.max(top, left));
-				}
-			}
-		}*/
-		//System.out.println("runNeedlemanWunschRecursively alignment score: "+maxAlign[xlength][ylength]);
+		int bestscore= computeF(20, 20, ychar, xchar);
 		long stop = System.currentTimeMillis();
-		System.out.println("Total Runtime: "+ (stop-start)+ " ms");
+		System.out.println("Optimal score Needleman-Wunsch recursively F(i,j): "+ bestscore);
+
+		System.out.println("Total Runtime Needleman-Wunsch recursively: "+ (stop-start)+ " ms");
 	}
 
 
@@ -229,16 +202,16 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 	public static int computeF(int i,int j, char[] xchar, char[] ychar) {
 		if (i==0 && j==0){
-			System.out.println("Ecke oben links");
+			//System.out.println("Ecke oben links");
 			return 0;
 
 		}
 		else if (i==0){
-			System.out.println("Oberste Zeile");
+			//System.out.println("Oberste Zeile");
 			return -j;
 		}
 		else if (j==0){
-			System.out.println("Linke Spalte");
+			//System.out.println("Linke Spalte");
 			return -i;
 		}
 		else{
@@ -249,10 +222,10 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 			else{
 				matchscore=-1;
 			}
-			System.out.println("Zeile " + i + " Spalte " + j);
+			//System.out.println("Zeile " + i + " Spalte " + j);
 			int bestscore = 0;
 			bestscore = Math.max(computeF(i-1, j-1, xchar, ychar) + matchscore, Math.max(computeF(i - 1,j, xchar, ychar)- 1 , computeF(i, j - 1, xchar, ychar) - 1));
-			System.out.println("Best score at Column "+j + "and row "+ i + ": "+ bestscore);
+			//System.out.println("Best score at Column "+j + "and row "+ i + ": "+ bestscore);
 			return bestscore;
 		}
 		// todo: implement
