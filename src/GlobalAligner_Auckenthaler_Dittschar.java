@@ -155,22 +155,25 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		// todo: implement using recursive function computeF, , Assignment 2.3
 		long start = System.currentTimeMillis();
 
-		//wahrscheinlich falsch, da Matrix benutzt wird bitte unbedingt prüfen!
+
 		char[] xchar = x.sequence().toCharArray();
-		char[] ychar =
-				y.sequence().toCharArray();
+		char[] ychar = y.sequence().toCharArray();
 		int match = 1;
 		int mismatch = -1;
 		int gap = 1;
 		int matchscore= -1;
 
+
+
 		int xlength = xchar.length;
 		int ylength = ychar.length;
 		System.out.println(xlength);
 		System.out.println(ylength);
-		int[][] maxAlign = new int[xlength+1][ylength+1];
 
-		for(int i = 0; i < xlength+1; i++) {
+		computeF(xlength -1, ylength - 1, xchar, ychar);
+		//int[][] maxAlign = new int[xlength+1][ylength+1];
+
+/*		for(int i = 0; i < xlength+1; i++) {
 			for( int j= 0; j< ylength+1; j++){
 				if(i == 0 && j== 0){
 					maxAlign[i][j]= 0;
@@ -195,8 +198,8 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 					maxAlign[i][j]= Math.max(top_left, Math.max(top, left));
 				}
 			}
-		}
-		System.out.println("runNeedlemanWunschRecursively alignment score: "+maxAlign[xlength][ylength]);
+		}*/
+		//System.out.println("runNeedlemanWunschRecursively alignment score: "+maxAlign[xlength][ylength]);
 		long stop = System.currentTimeMillis();
 		System.out.println("Total Runtime: "+ (stop-start)+ " ms");
 	}
@@ -224,8 +227,33 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		return arg;
 	}
 
-	public static int computeF(int i,int j) {
+	public static int computeF(int i,int j, char[] xchar, char[] ychar) {
+		if (i==0 && j==0){
+			System.out.println("Ecke oben links");
+			return 0;
+
+		}
+		else if (i==0){
+			System.out.println("Oberste Zeile");
+			return -j;
+		}
+		else if (j==0){
+			System.out.println("Linke Spalte");
+			return -i;
+		}
+		else{
+			int matchscore = 0;
+			if(xchar[i] == ychar[j]){
+				matchscore= 1;
+			}
+			else{
+				matchscore=-1;
+			}
+			System.out.println("Zeile " + i + " Spalte " + j);
+			bestscore = Math.max(computeF(i-1, j-1, xchar, ychar) + matchscore, Math.max(computeF(i - 1,j, xchar, ychar)- 1 , computeF(i, j - 1, xchar, ychar) - 1));
+			System.out.println("Best score: "+ bestscore);
+			return bestscore;
+		}
 		// todo: implement
-		return 0;
 	}
 }

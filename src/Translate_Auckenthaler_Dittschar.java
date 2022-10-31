@@ -96,7 +96,7 @@ public class Translate_Auckenthaler_Dittschar {
 			else if (codon.equals("TGG")){
 				buf.append("W");
 			}
-			else if (codon.equals("CGT") || codon.equals("CGC")|| codon.equals("CGA")|| codon.equals("CGG") || codon.equals("AGA") || codon.equals("AGG")){
+			else if (codon.equals("AGA") || codon.equals("AGC"){
 				buf.append("R");
 			}
 			else if (codon.equals("AGT") || codon.equals("AGC")){
