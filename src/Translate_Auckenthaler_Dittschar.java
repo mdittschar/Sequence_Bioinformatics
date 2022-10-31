@@ -31,7 +31,7 @@ public class Translate_Auckenthaler_Dittschar {
 
 	public static String translate(String sequence) {
 		//Source for bacterial genetic code:
-		// https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables#Standard_DNA_codon_table
+		//https://www.genscript.com/tools/codon-frequency-table
 		var buf=new StringBuilder();
 		for (int i =0; i < sequence.length()/3; i++){
 			String codon = new String(sequence.substring(i*3, (i+1)*3));
