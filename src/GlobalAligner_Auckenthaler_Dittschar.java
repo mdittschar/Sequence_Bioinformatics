@@ -170,7 +170,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		System.out.println(xlength);
 		System.out.println(ylength);
 
-		computeF(xlength -1, ylength - 1, xchar, ychar);
+		computeF(6, 6, ychar, xchar);
 		//int[][] maxAlign = new int[xlength+1][ylength+1];
 
 /*		for(int i = 0; i < xlength+1; i++) {
@@ -243,15 +243,16 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		}
 		else{
 			int matchscore = 0;
-			if(xchar[i] == ychar[j]){
+			if(xchar[i - 1] == ychar[j - 1]){
 				matchscore= 1;
 			}
 			else{
 				matchscore=-1;
 			}
 			System.out.println("Zeile " + i + " Spalte " + j);
+			int bestscore = 0;
 			bestscore = Math.max(computeF(i-1, j-1, xchar, ychar) + matchscore, Math.max(computeF(i - 1,j, xchar, ychar)- 1 , computeF(i, j - 1, xchar, ychar) - 1));
-			System.out.println("Best score: "+ bestscore);
+			System.out.println("Best score at Column "+j + "and row "+ i + ": "+ bestscore);
 			return bestscore;
 		}
 		// todo: implement
