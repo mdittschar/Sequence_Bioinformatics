@@ -14,19 +14,29 @@ public class Translate_Auckenthaler_Dittschar {
 		if (args.length < 1 || args.length > 2)
 			throw new IOException("Usage: Translate_Auckenthaler_Dittschar infile [outFile]");
 
-		var translated=new ArrayList<assignment01.FastA_Auckenthaler_Dittschar.Pair>();
-		// todo: read in FastA pairs
-		var list = assignment01.FastA_Auckenthaler_Dittschar.read(args[0]);
-		for (int i =0; i < list.size(); i++){
-			String sequence = list.get(i).sequence();
-			sequence = sequence.replaceAll("\\s+","");
-			translated.add(new FastA_Auckenthaler_Dittschar.Pair(list.get(i).header(), translate(sequence)));
+
+		else{
+			var translated=new ArrayList<assignment01.FastA_Auckenthaler_Dittschar.Pair>();
+			// todo: read in FastA pairs
+			var list = assignment01.FastA_Auckenthaler_Dittschar.read(args[0]);
+			for (int i =0; i < list.size(); i++){
+				String sequence = list.get(i).sequence();
+				sequence = sequence.replaceAll("\\s+","");
+				translated.add(new FastA_Auckenthaler_Dittschar.Pair(list.get(i).header(), translate(sequence)));
+			}
+			if (args.length <2){
+				System.out.println(translated);
+			}
+			// todo: compute translated sequences using translate(sequence) method defined below
+
+			else{
+				// todo: write translated sequences
+				assignment01.FastA_Auckenthaler_Dittschar.write(translated,args[1]);
+			}
 		}
 
-		// todo: compute translated sequences using translate(sequence) method defined below
 
 
-		// todo: write translated sequences
 	}
 
 	public static String translate(String sequence) {
@@ -96,18 +106,17 @@ public class Translate_Auckenthaler_Dittschar {
 			else if (codon.equals("TGG")){
 				buf.append("W");
 			}
-			else if (codon.equals("AGA") || codon.equals("AGC"){
+			else if (codon.equals("AGA") || codon.equals("AGC")){
 				buf.append("R");
 			}
+
 			else if (codon.equals("AGT") || codon.equals("AGC")){
 				buf.append("S");
 			}
 
-
-
 		}
 		// todo: implement translation of sequence
-		System.out.println(buf.toString());
+		//System.out.println(buf.toString());
 		return buf.toString();
 	}
 }

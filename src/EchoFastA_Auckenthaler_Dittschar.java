@@ -3,6 +3,7 @@ package assignment01;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import static assignment01.FastA_Auckenthaler_Dittschar.read;
 
 /**
@@ -18,9 +19,15 @@ public class EchoFastA_Auckenthaler_Dittschar {
 			var list =  assignment01.FastA_Auckenthaler_Dittschar.read(args[0]);
 			ArrayList<FastA_Auckenthaler_Dittschar.Pair> example_list = new ArrayList<FastA_Auckenthaler_Dittschar.Pair>();
 			example_list = read("dna.fasta");
-			assignment01.FastA_Auckenthaler_Dittschar.write(example_list, "");
+			// todo: read FastA records from infile and echo to outfile or stdout (console)
+
+			if(args.length <2){
+				System.out.println(example_list);
+			}
+			else {
+				assignment01.FastA_Auckenthaler_Dittschar.write(example_list,args[1]);
+			}
 		}
-		// todo: read FastA records from infile and echo to outfile or stdout (console)
 
 	}
 }
