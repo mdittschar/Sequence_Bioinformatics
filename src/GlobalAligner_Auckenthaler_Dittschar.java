@@ -136,15 +136,18 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param y
 	 */
 	public static void runNeedlemanWunschLinearSpace(assignment01.FastA_Auckenthaler_Dittschar.Pair x, assignment01.FastA_Auckenthaler_Dittschar.Pair y) {
-
-		// todo: implement, Assignment 2.2
-		char[] xchar = x.sequence().toCharArray();
-		char[] ychar = y.sequence().toCharArray();
-		int xlength = xchar.length;
-		int ylength = ychar.length;
 		int match = 1;
 		int mismatch = -1;
 		int gap = 1;
+		char[] xchar = x.sequence().toCharArray();
+		char[] ychar = y.sequence().toCharArray();
+
+
+		// todo: implement, Assignment 2.2
+
+		int xlength = xchar.length;
+		int ylength = ychar.length;
+
 		// matrix initialization
 		// "qurrent" column
 		Integer[] Q = new Integer[ylength + 1];
@@ -153,6 +156,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		Integer[] CC = new Integer[ylength + 1];
 		// previous C
 		Integer[] CP = new Integer[ylength + 1];
+
 
 		int c = xlength/2;
 		System.out.println("c is: "+c);
@@ -178,11 +182,13 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 				else{
 					matchscore = mismatch;
 				}
-				// change order so max is in front!
 				Q[j] = Math.max(P[j] - gap, Math.max(Q[j-1] - gap, P[j - 1] + matchscore));
+				// starting from the middle, also fill out the c columns
 				if (i > c ){
+					// find the location of the argmax
 					Integer[] comparr = {P[j] - gap, Q[j-1] - gap, P[j - 1] + matchscore};
 					int origin = argmax(comparr);
+					// track where the traceback crosses the middle column
 					if (origin == 2){
 						CC[j] = CP[j-1];
 					}
@@ -199,6 +205,9 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 				CP = CC.clone();
 			}
 		}
+		// wenn wir nur noch triviale Matrizen haben, berechne das Alignment
+		// noch nicht getestet!
+
 		System.out.println("The cell that the traceback goes through in the middle column ("+ c+ ") is " + CC[ylength]);
 		System.out.println("Optimal score Needleman-Wunsch linear space: "+ Q[ylength]);
 	}
@@ -236,6 +245,40 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		System.out.println("Total Runtime Needleman-Wunsch recursively: "+ (stop-start)+ " ms");
 	}
 
+	// recursive function that needs to be called on substrings
+	public static String[] divideAndConquer(char[] xchar, char[] ychar){
+		// hab das alignment mal hier rein gepackt, quasi alles was oben in linearspace ist, sollte hier dann in die re-
+		// kursive Funktion
+
+		// output alignmend strings
+		String alignedseq1 = "";
+		String alignedseq2 = "";
+		// platzhalter für CC, ylength, xlength, i und j
+		int CC[] = {0,0};
+		int xlength =0;
+		int ylength = 0;
+		int i = 0;
+		int j = 0;
+		String[] subalignment = new String[2];
+		if (ylength == 2 || xlength == 2){
+			if (CC[ylength] == 2){
+				alignedseq1 = xchar[i-1]+ alignedseq1;
+				alignedseq2 = ychar[j-1] + alignedseq2;
+			}
+			else if(CC[ylength] == 1){
+				alignedseq1 =  "-" + alignedseq1;
+				alignedseq2 = ychar[j-1]+ alignedseq2;
+			}
+			else if(CC[ylength] == 0){
+				alignedseq2 =  "-" + alignedseq2;
+				alignedseq1 = xchar[j-1]+ alignedseq1;
+			}
+			subalignment[0] = alignedseq1;
+			subalignment[1] =  alignedseq2;
+
+		}
+		return subalignment;
+	}
 
 	public static void prettyPrint(Integer[][] nw_matrix){
 		// print a neater matrix representation
