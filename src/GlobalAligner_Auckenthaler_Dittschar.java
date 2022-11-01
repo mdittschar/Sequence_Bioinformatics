@@ -32,7 +32,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		switch(mode) {
 			case "quadraticSpace" -> runNeedlemanWunschQuadraticSpace(list.get(0),list.get(1));
 			case "linearSpace" ->runNeedlemanWunschLinearSpace(list.get(0),list.get(1));
-			case "noDP" ->runNeedlemanWunschQuadraticSpace(list.get(0),list.get(1));
+			case "noDP" ->runNeedlemanWunschRecursively(list.get(0),list.get(1));
 			default -> throw new IOException("Unknown mode: "+mode);
 		}
 	}
@@ -149,12 +149,22 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		// "qurrent" column
 		Integer[] Q = new Integer[ylength + 1];
 		Integer[] P = new Integer[ylength + 1];
+		// current C
+		Integer[] CC = new Integer[ylength + 1];
+		// previous C
+		Integer[] CP = new Integer[ylength + 1];
+
 		int c = xlength/2;
+		System.out.println("c is: "+c);
 		int matchscore = 0;
 		// initialization of first column
 		for (int j = 0; j < ylength+1; j++){
 			P[j] = - j*gap;
+			CP[j] = j;
 		}
+		// initialize middle tracking columns
+		CC[0] = 0;
+
 
 		// starting with second column, fill the current variable columns
 
@@ -168,10 +178,28 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 				else{
 					matchscore = mismatch;
 				}
-				Q[j] = Math.max(P[j] - gap, Math.max(Q[j-1] - gap, P[j - 1] + matchscore));}
+				// change order so max is in front!
+				Q[j] = Math.max(P[j] - gap, Math.max(Q[j-1] - gap, P[j - 1] + matchscore));
+				if (i > c ){
+					Integer[] comparr = {P[j] - gap, Q[j-1] - gap, P[j - 1] + matchscore};
+					int origin = argmax(comparr);
+					if (origin == 2){
+						CC[j] = CP[j-1];
+					}
+					else if (origin == 1){
+						CC[j] = CC[j - 1];
+					}
+					else if (origin == 0){
+						CC[j] = CP[j];
+					}
+				}
+			}
 			P = Q.clone();
+			if (i > c ){
+				CP = CC.clone();
+			}
 		}
-		System.out.println(Arrays.toString(Q));
+		System.out.println("The cell that the traceback goes through in the middle column ("+ c+ ") is " + CC[ylength]);
 		System.out.println("Optimal score Needleman-Wunsch linear space: "+ Q[ylength]);
 	}
 
