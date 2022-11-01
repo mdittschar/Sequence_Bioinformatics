@@ -87,11 +87,9 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 				Integer[] traceback_arr = {up, left, diagonal};
 				int tracer = argmax(traceback_arr);
 				traceback_matrix[i][j]= tracer;
-
 			}
 		}
-
-		prettyPrint(nw_matrix);
+		//prettyPrint(nw_matrix);
 
 		//generating alignment sequence
 		int i = traceback_matrix.length-1;
@@ -133,11 +131,14 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 	 * @param y
 	 */
 	public static void runNeedlemanWunschLinearSpace(assignment01.FastA_Auckenthaler_Dittschar.Pair x, assignment01.FastA_Auckenthaler_Dittschar.Pair y) {
+		long start = System.currentTimeMillis();
+
 		char[] xchar = x.sequence().toCharArray();
 		char[] ychar = y.sequence().toCharArray();
 
 		divideAndConquer(xchar,ychar);
-
+		long stop = System.currentTimeMillis();
+		System.out.println("Total Runtime Needleman-Wunsch linear space: "+ (stop-start)+ " ms");
 	}
 
 	// recursive function that needs to be called on substrings
@@ -163,10 +164,10 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 
 		int c = xlength/2;
-		if (c>1){
+		if (c<2){
 			System.out.println("c is to small: "+c);
 		}
-		else{
+		else if (c>=2){
 			System.out.println("c is: "+c);
 			int matchscore = 0;
 			// initialization of first column
@@ -261,7 +262,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		//System.out.println(xlength);
 		//System.out.println(ylength);
 		// 6 for less time
-		int bestscore= computeF(20, 20, ychar, xchar);
+		int bestscore= computeF(15, 15, ychar, xchar);
 		long stop = System.currentTimeMillis();
 		System.out.println("Optimal score Needleman-Wunsch recursively F(i,j): "+ bestscore);
 
