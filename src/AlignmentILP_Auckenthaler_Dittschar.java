@@ -10,13 +10,13 @@ import java.io.OutputStreamWriter;
  * setup ILP to solve multiple sequence alignment for three sequences
  * Sequence Bioinformatics, WS22/23
  */
-public class AlignmentILP_YOUR_NAME {
+public class AlignmentILP_Auckenthaler_Dittschar {
 	public static void main(String[] args) throws IOException {
 		if (args.length != 1 && args.length!=2) {
-			throw new IOException("Usage: AlignmentILP_YOUR_NAME input [output]");
+			throw new IOException("Usage: AlignmentILP_Auckenthaler_Dittschar input [output]");
 		}
 
-		var list = FastA_YOUR_NAME.read(args[0]);
+		var list = assignment01.FastA_Auckenthaler_Dittschar.read(args[0]);
 
 		if (list.size() != 3) {
 			throw new IOException("Input file must contain 3 sequences, found: " + list.size());

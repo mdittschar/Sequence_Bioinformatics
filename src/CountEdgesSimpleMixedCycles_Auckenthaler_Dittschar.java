@@ -4,16 +4,18 @@ import java.io.IOException;
 
 /**
  * count number of edges between nucleotides in different sequences and the number of mixed cycles
+ * Autors: Clarissa Auckenthaler und Marina Dittschar
  * Sequence Bioinformatics, WS22/23
  */
-public class CountEdgesSimpleMixedCycles_YOUR_Name {
+
+public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 	public static void main(String[] args) throws IOException {
 		if(args.length!=3)
 			throw new IOException("Usage: CountEdgesSimpleMixedCycles_YOUR_Name aLength bLength cLength");
 
 		var length=new int[]{Integer.parseInt(args[0]),Integer.parseInt(args[1]),Integer.parseInt(args[2])};
 
-		System.out.println(CountEdgesSimpleMixedCycles_YOUR_Name.class.getSimpleName());
+		System.out.println(CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar.class.getSimpleName());
 
 		System.out.printf("Sequence lengths: %d %d %d%n", length[0],length[1],length[2]);
 
