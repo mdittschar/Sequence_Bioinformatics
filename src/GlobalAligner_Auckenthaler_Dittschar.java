@@ -136,13 +136,13 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 		char[] xchar = x.sequence().toCharArray();
 		char[] ychar = y.sequence().toCharArray();
 
-		divideAndConquer(xchar,ychar);
+		divideAndConquer(xchar,ychar, 1);
 		long stop = System.currentTimeMillis();
 		System.out.println("Total Runtime Needleman-Wunsch linear space: "+ (stop-start)+ " ms");
 	}
 
 	// recursive function that needs to be called on substrings
-	public static void divideAndConquer(char[] xchar, char[] ychar){
+	public static void divideAndConquer(char[] xchar, char[] ychar, int run){
 		// todo: implement, Assignment 2.2
 		int match = 1;
 		int mismatch = -1;
@@ -165,7 +165,7 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 
 		int c = xlength/2;
 		if (c<2){
-			System.out.println("c is to small: "+c);
+			return;
 		}
 		else if (c>=2){
 			System.out.println("c is: "+c);
@@ -214,22 +214,19 @@ public class GlobalAligner_Auckenthaler_Dittschar {
 			}
 
 
-			System.out.println("The cell that the traceback goes through in the middle column ("+ c+ ") is " + CC[ylength]);
+			System.out.println("The cell that the traceback goes through in recursion "+run+" in the middle column ("+ c+ ") is " + CC[ylength]);
 			System.out.println("Optimal score Needleman-Wunsch linear space: "+ Q[ylength]);
 
-			//Für die prefix stimmen die werte noch aber da die Suffix erst danach aufgerufen werden, passen dort die werte c und cc(ylength) nicht mehr :/
+
 			// Prefix
-			System.out.println("Prefix");
 			char[] xsubseq_s_c = Arrays.copyOfRange(xchar, 0, c);
 			char[] ysubseq_s_c = Arrays.copyOfRange(ychar, 0, CC.length);
-			divideAndConquer(xsubseq_s_c, ysubseq_s_c);
+			divideAndConquer(xsubseq_s_c, ysubseq_s_c, run+1);
 
-
-
-			System.out.println("Suffix");
+			// Suffix
 			char[] xsubseq_c_e = Arrays.copyOfRange(xchar, c, xchar.length);
 			char[] ysubseq_c_e = Arrays.copyOfRange(ychar, c, ychar.length);
-			divideAndConquer(xsubseq_c_e, ysubseq_c_e);
+			divideAndConquer(xsubseq_c_e, ysubseq_c_e, run+1);
 
 		}
 		//return c;
