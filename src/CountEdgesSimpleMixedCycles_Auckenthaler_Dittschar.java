@@ -34,21 +34,20 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 		// first compute the number of simple mixed cycles that use two cycles
 
 		// then compute and add the number of simple mixed cycles that use three cycles
-		numSimpleMixedCycles = countSimpleMixedCycles(length);
-
+		//numSimpleMixedCycles = countSimpleMixedCycles(length);
+		countSimpleMixedCycles(length);
 		System.out.printf("Total simple mixed cycles: %d%n", numSimpleMixedCycles);
 	}
 
 	public static int countAllEdges(int[] lengths){
 		return lengths[0]*lengths[1]+lengths[2]*lengths[1]+lengths[0]*lengths[2];
 	}
-	public static int countSimpleMixedCycles(int[] lengths){
+	public static void countSimpleMixedCycles(int[] lengths){
 
-		long c = binomialCoefficient(lengths[0]*lengths[1],2);
-		System.out.println("C is: "+c);
-		c = c + binomialCoefficient(lengths[1]*lengths[2], 2);
-		c = c + binomialCoefficient(lengths[2]*lengths[0], 2);
-		return c;
+		binomialCoefficient(lengths[0]*lengths[1],2);
+		binomialCoefficient(lengths[1]*lengths[2], 2);
+		binomialCoefficient(lengths[2]*lengths[0], 2);
+		//return c;
 	}
 	public static long factorial(long f){
 		if(f <= 1){
@@ -57,9 +56,10 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 		return f * factorial(f-1);
 
 	}
-	public static long binomialCoefficient(long n, long c){
-		System.out.println("Factorial of "+n+" "+factorial(n));
-		return factorial(20)/(factorial(20)*2);
+	public static void binomialCoefficient(long n, long c){
+		System.out.println("binomial coefficient of "+n+" "+factorial(n)/(factorial(n-c)*factorial(c)));
+
+		//return factorial(n)/(factorial(n)*factorial(c));
 	}
 }
 
