@@ -60,7 +60,7 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 					for (int l = 0; l < length[1]; l++) {
 						for (int m = 0; m < length[2]; m++) {
 							for (int n = 0; n < length[2]; n++) {
-								if (i != j || k != l || m != n) {
+								if ((i != j) || (k != l) || (m!=n)) {
 									numSimpleMixedCycles3 += 2;
 								}
 							}
