@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.LinkedHashSet;
 import java.util.Arrays;
+import java.util.ArrayList;
+
 
 
 /**
@@ -34,14 +36,19 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 		int match = 4;
 		int mismatch = 1;
 
+		ArrayList<String> objectiveFunction = new ArrayList<String>();
+		ArrayList<String> simpleMixedCyles2 = new ArrayList<String>();
+		ArrayList<String> simpleMixedCyles3 = new ArrayList<String>();
+
+
 		try(var w=(args.length ==2?new FileWriter(args[1]):new OutputStreamWriter(System.out))) {
 			w.write("max: ");
 			// 1. write the objective function: loop over all pairs of sequences and all pairs of letters
 			for (int no_seq = 0; no_seq < list.size(); no_seq++) {
-				char[] si = list.get(2).sequence().toCharArray();
-				int i= 2;
-				char[] sp = list.get(0).sequence().toCharArray();
-				int p= 0;
+				char[] si = list.get(0).sequence().toCharArray();
+				int i= 0;
+				char[] sp = list.get(2).sequence().toCharArray();
+				int p= 2;
 				if (no_seq!= list.size() - 1){
 					si = list.get(no_seq).sequence().toCharArray();
 					i= no_seq;
@@ -51,10 +58,10 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
 						if (si[j]== sp[q]){
-							w.write("+"+match+"*X"+(i)+(j)+"_"+(p)+(q));
+							w.write("+"+String.valueOf(match)+"*X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(q));
 						}
 						else{
-							w.write("+"+mismatch+"*X"+(i)+(j)+"_"+(p)+(q));
+							w.write("+"+String.valueOf(mismatch)+"*X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(q));
 						}
 					}
 				}
@@ -62,12 +69,12 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 			w.write(";");
 			w.write('\n');
 
-			// 2. write out all the simple mixed cycle constraints between any two sequences
+			//2. write out all the simple mixed cycle constraints between any two sequences
 			for (int no_seq = 0; no_seq < list.size(); no_seq++) {
-				char[] si = list.get(2).sequence().toCharArray();
-				int i = 2;
-				char[] sp = list.get(0).sequence().toCharArray();
-				int p = 0;
+				char[] si = list.get(0).sequence().toCharArray();
+				int i = 0;
+				char[] sp = list.get(2).sequence().toCharArray();
+				int p = 2;
 				if (no_seq != list.size() - 1) {
 					si = list.get(no_seq).sequence().toCharArray();
 					i = no_seq;
@@ -79,16 +86,13 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 						for (int k = 0; k < sp.length; k++) {
 							for (int l = 0; l < sp.length; l++) {
 								if (k !=l || ii != j) {
-									/** dont know what to write here**/
-									//w.write("x"+ii+j+"_"+k+l+"+"+ "<2;");
-									 //w.write('\n');
+									// dont know what to write here
+									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
 								}
 							}
 						}
 					}
 				}
-
-
 			}
 			// 3. write out all the simple mixed cycle constraints between any three sequences
 			for (int ii = 0; ii < sequence1.length; ii++) {
@@ -97,10 +101,8 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 						for (int l = 0; l < sequence2.length; l++) {
 							for (int m= 0; m<sequence3.length;m++){
 								for (int n= 0; n<sequence3.length;n++){
-									if (k !=l || ii != j||m!=n) {
-
-										/** dont know what to write there**/
-										//w.write("x"+ii+j+"_"+k+l+"+"+ "<2;");
+									if ((k !=l) || (ii != j)||(m!=n)) {
+										w.write("X"+0+ii+"_"+1+k+"_"+2+m+"+"+"X"+0+j+"_"+1+l+"_"+2+n+ "<2;");
 										//w.write('\n');
 									}
 								}
@@ -112,10 +114,10 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 
 			// 4. write out the binary variable constraints
 			for (int no_seq = 0; no_seq < list.size(); no_seq++) {
-				char[] si = list.get(2).sequence().toCharArray();
-				int i= 2;
-				char[] sp = list.get(0).sequence().toCharArray();
-				int p= 0;
+				char[] si = list.get(0).sequence().toCharArray();
+				int i= 0;
+				char[] sp = list.get(2).sequence().toCharArray();
+				int p= 2;
 				if (no_seq!= list.size() - 1){
 					si = list.get(no_seq).sequence().toCharArray();
 					i= no_seq;
@@ -125,7 +127,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
 						w.write("X"+(i)+(j)+"_"+(p)+(q)+"<1;");
-						w.write('\n');
+						//w.write('\n');
 					}
 				}
 			}
@@ -133,10 +135,10 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 			// 5. specify all variables as integers
 			w.write("int ");
 			for (int no_seq = 0; no_seq < list.size(); no_seq++) {
-				char[] si = list.get(2).sequence().toCharArray();
-				int i= 2;
-				char[] sp = list.get(0).sequence().toCharArray();
-				int p= 0;
+				char[] si = list.get(0).sequence().toCharArray();
+				int i= 0;
+				char[] sp = list.get(2).sequence().toCharArray();
+				int p= 2;
 				if (no_seq!= list.size() - 1){
 					si = list.get(no_seq).sequence().toCharArray();
 					i= no_seq;
@@ -145,7 +147,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 				}
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
-							if (j == si.length-1 && q==sp.length-1) {
+							if ((j == si.length-1) && (q==sp.length-1)&& (p==2)&&(i==0)) {
 								w.write("X"+(i)+(j)+"_"+(p)+(q));
 								w.write(";");
 							}
@@ -155,7 +157,6 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					}
 				}
 			}
-
 		}
 	}
 
