@@ -32,8 +32,9 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 		// todo: implement counting of number of simple mixed cycles
 		// first compute the number of simple mixed cycles that use two cycles
 		for (int no_seq = 0; no_seq < length.length; no_seq++) {
-			int sequence1 = length[2];
-			int sequence2 = length[0];
+			//iterate trough all possible sequence combinations
+			int sequence1 = length[0];
+			int sequence2 = length[2];
 			if (no_seq!= length.length - 1){
 				sequence1 = length[no_seq];
 				sequence2 = length[no_seq + 1];

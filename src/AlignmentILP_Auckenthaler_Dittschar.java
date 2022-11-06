@@ -145,6 +145,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					sp = list.get(no_seq+1).sequence().toCharArray();
 					p= (no_seq+1);
 				}
+				
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
 							if ((j == si.length-1) && (q==sp.length-1)&& (p==2)&&(i==0)) {
