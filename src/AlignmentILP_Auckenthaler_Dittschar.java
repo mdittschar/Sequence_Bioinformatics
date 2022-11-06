@@ -103,7 +103,6 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 								for (int n= 0; n<sequence3.length;n++){
 									if ((k !=l) || (ii != j)||(m!=n)) {
 										w.write("X"+0+ii+"_"+1+k+"_"+2+m+"+"+"X"+0+j+"_"+1+l+"_"+2+n+ "<2;");
-										//w.write('\n');
 									}
 								}
 							}
@@ -111,6 +110,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					}
 				}
 			}
+			w.write('\n');
 
 			// 4. write out the binary variable constraints
 			for (int no_seq = 0; no_seq < list.size(); no_seq++) {
@@ -127,7 +127,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
 						w.write("X"+(i)+(j)+"_"+(p)+(q)+"<1;");
-						//w.write('\n');
+						w.write('\n');
 					}
 				}
 			}
@@ -145,7 +145,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					sp = list.get(no_seq+1).sequence().toCharArray();
 					p= (no_seq+1);
 				}
-				
+
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
 							if ((j == si.length-1) && (q==sp.length-1)&& (p==2)&&(i==0)) {
