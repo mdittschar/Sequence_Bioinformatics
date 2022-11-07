@@ -90,7 +90,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 							for (int l = k; l < sp.length; l++) {
 								if (k !=l || ii != j) {
 									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+" + "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;\n");
-									//simpleMixedCyles2.add("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
+									simpleMixedCyles2.add("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
 
 								}
 							}
@@ -107,9 +107,9 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 								for (int n= m; n<sequence3.length;n++){
 									if ((k !=l) || (ii != j)||(m!=n)) {
 										w.write("X"+"0"+ii+"_"+"1"+k+"_"+"2"+m+" + "+"X"+"0"+j+"_"+"1"+l+"_"+"2"+n+ "<2;\n");
-										//simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"1"+String.valueOf(k)+"_"+"2"+String.valueOf(m)+"+"+"X"+"0"+String.valueOf(j)+"_"+"1"+String.valueOf(l)+"_"+"2"+String.valueOf(n)+ "<2;");
-										w.write("X"+"0"+ii+"_"+"2"+k+"_"+"1"+m+" + "+"X"+"0"+j+"_"+"2"+l+"_"+"1"+n+ "<2;\n");
-										//simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"2"+String.valueOf(k)+"_"+"1"+String.valueOf(m)+"+"+"X"+"0"+String.valueOf(j)+"_"+"2"+String.valueOf(l)+"_"+"1"+String.valueOf(n)+ "<2;");
+										simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"1"+String.valueOf(k)+"_"+"2"+String.valueOf(m)+"+"+"X"+"0"+String.valueOf(j)+"_"+"1"+String.valueOf(l)+"_"+"2"+String.valueOf(n)+ "<2;");
+										w.write("X"+"0"+ii+"_"+"2"+m+"_"+"1"+k+" + "+"X"+"0"+j+"_"+"2"+n+"_"+"1"+l+ "<2;\n");
+										simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"2"+String.valueOf(m)+"_"+"1"+String.valueOf(k)+"+"+"X"+"0"+String.valueOf(j)+"_"+"2"+String.valueOf(n)+"_"+"1"+String.valueOf(l)+ "<2;");
 
 									}
 								}
@@ -165,8 +165,8 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					}
 				}
 			}
-			//System.out.println(simpleMixedCyles3.size());
-			//System.out.println(simpleMixedCyles2.size());
+			System.out.println(simpleMixedCyles3.size());
+			System.out.println(simpleMixedCyles2.size());
 
 		}
 	}
