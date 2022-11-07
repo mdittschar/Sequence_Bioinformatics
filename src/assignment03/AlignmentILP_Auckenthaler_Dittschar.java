@@ -82,9 +82,9 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					p = (no_seq + 1);
 				}
 				for (int ii = 0; ii < si.length; ii++) {
-					for (int j = 0; j < si.length; j++) {
+					for (int j = ii; j < si.length; j++) {
 						for (int k = 0; k < sp.length; k++) {
-							for (int l = 0; l < sp.length; l++) {
+							for (int l = k; l < sp.length; l++) {
 								if (k !=l || ii != j) {
 									// dont know what to write here
 									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
@@ -96,11 +96,11 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 			}
 			// 3. write out all the simple mixed cycle constraints between any three sequences
 			for (int ii = 0; ii < sequence1.length; ii++) {
-				for (int j = 0; j < sequence1.length; j++) {
+				for (int j  = ii ; j < sequence1.length; j++) {
 					for (int k = 0; k < sequence2.length; k++) {
-						for (int l = 0; l < sequence2.length; l++) {
+						for (int l = k; l < sequence2.length; l++) {
 							for (int m= 0; m<sequence3.length;m++){
-								for (int n= 0; n<sequence3.length;n++){
+								for (int n= m; n<sequence3.length;n++){
 									if ((k !=l) || (ii != j)||(m!=n)) {
 										w.write("X"+0+ii+"_"+1+k+"_"+2+m+"+"+"X"+0+j+"_"+1+l+"_"+2+n+ "<2;");
 									}
