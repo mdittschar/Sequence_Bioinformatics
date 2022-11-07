@@ -31,6 +31,7 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 		char[] sequence1 = list.get(0).sequence().toCharArray();
 		char[] sequence2 = list.get(1).sequence().toCharArray();
 		char[] sequence3 = list.get(2).sequence().toCharArray();
+		String plus = "";
 
 		// todo: setup and write out ILP based on extended alignment graph, with match score =  4 and mismatch score = 1
 		int match = 4;
@@ -57,12 +58,14 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 				}
 				for (int j= 0; j < si.length; j++) {
 					for (int q=0; q<sp.length;q++){
+
 						if (si[j]== sp[q]){
-							w.write("+"+String.valueOf(match)+"*X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(q));
+							w.write(plus+String.valueOf(match)+"*X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(q));
 						}
 						else{
-							w.write("+"+String.valueOf(mismatch)+"*X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(q));
+							w.write(plus+String.valueOf(mismatch)+"*X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(q));
 						}
+						plus = "+";
 					}
 				}
 			}
