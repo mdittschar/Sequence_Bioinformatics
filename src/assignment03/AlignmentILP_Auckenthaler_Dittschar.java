@@ -89,15 +89,14 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 						for (int k = 0; k < sp.length; k++) {
 							for (int l = k; l < sp.length; l++) {
 								if (k !=l || ii != j) {
-									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+" + "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;\n");
-									simpleMixedCyles2.add("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
-
+									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(l)+" + "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(k)+"<1;\n");
 								}
 							}
 						}
 					}
 				}
 			}
+
 			// 3. write out all the simple mixed cycle constraints between any three sequences
 			for (int ii = 0; ii < sequence1.length; ii++) {
 				for (int j  = ii ; j < sequence1.length; j++) {
@@ -106,11 +105,10 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 							for (int m= 0; m<sequence3.length;m++){
 								for (int n= m; n<sequence3.length;n++){
 									if ((k !=l) || (ii != j)||(m!=n)) {
-										w.write("X"+"0"+ii+"_"+"1"+k+"_"+"2"+m+" + "+"X"+"0"+j+"_"+"1"+l+"_"+"2"+n+ "<2;\n");
-										simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"1"+String.valueOf(k)+"_"+"2"+String.valueOf(m)+"+"+"X"+"0"+String.valueOf(j)+"_"+"1"+String.valueOf(l)+"_"+"2"+String.valueOf(n)+ "<2;");
-										w.write("X"+"0"+ii+"_"+"2"+m+"_"+"1"+k+" + "+"X"+"0"+j+"_"+"2"+n+"_"+"1"+l+ "<2;\n");
-										simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"2"+String.valueOf(m)+"_"+"1"+String.valueOf(k)+"+"+"X"+"0"+String.valueOf(j)+"_"+"2"+String.valueOf(n)+"_"+"1"+String.valueOf(l)+ "<2;");
-
+										//w.write("X"+ii+j+"_"+k+l+" + "+"X"+k+l+"_"+m+n+" + "+"X"+ii+j+"_"+m+n+"<2;\n");
+										//w.write("X"+k+l+"_"+ii+j+" + "+"X"+m+n+"_"+k+l+" + "+"X"+m+n+"_"+ii+j+"<2;\n");
+										w.write("X"+"0"+ ii+"_" + "1" +l + " + " + "X" + "1" + k + "_" + "2" + n + " + " +"X"+"0"+j+"_"+"2"+m+"<2;\n");
+										w.write("X"+"0"+ j +"_" + "1" +k + " + " + "X" + "1" + l + "_" + "2" + m + " + " +"X"+"2"+n+"_"+"0"+ii+"<2;\n");
 									}
 								}
 							}
@@ -165,9 +163,6 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					}
 				}
 			}
-			System.out.println(simpleMixedCyles3.size());
-			System.out.println(simpleMixedCyles2.size());
-
 		}
 	}
 
