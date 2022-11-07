@@ -40,9 +40,9 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 				sequence2 = length[no_seq + 1];
 			}
 			for (int i = 0; i < sequence1; i++) {
-				for (int j = 0; j < sequence1; j++) {
+				for (int j = i; j < sequence1; j++) {
 					for (int k = 0; k < sequence2; k++) {
-						for (int l = 0; l < sequence2; l++) {
+						for (int l = k; l < sequence2; l++) {
 							if (k !=l || i != j) {
 								numSimpleMixedCycles2 += 1;
 							}
@@ -56,11 +56,11 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 		int numSimpleMixedCycles3 = 0;
 		numSimpleMixedCycles3= numSimpleMixedCycles2;
 		for (int i = 0; i < length[0]; i++) {
-			for (int j = 0; j < length[0]; j++) {
+			for (int j = i; j < length[0]; j++) {
 				for (int k = 0; k < length[1]; k++) {
-					for (int l = 0; l < length[1]; l++) {
+					for (int l = k; l < length[1]; l++) {
 						for (int m = 0; m < length[2]; m++) {
-							for (int n = 0; n < length[2]; n++) {
+							for (int n = m; n < length[2]; n++) {
 								if ((i != j) || (k != l) || (m!=n)) {
 									numSimpleMixedCycles3 += 2;
 								}
