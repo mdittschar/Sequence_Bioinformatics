@@ -86,8 +86,9 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 						for (int k = 0; k < sp.length; k++) {
 							for (int l = k; l < sp.length; l++) {
 								if (k !=l || ii != j) {
-									// dont know what to write here
-									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
+									w.write("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+" + "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;\n");
+									//simpleMixedCyles2.add("X"+String.valueOf(i)+String.valueOf(ii)+"_"+String.valueOf(p)+String.valueOf(k)+"+ "+"X"+String.valueOf(i)+String.valueOf(j)+"_"+String.valueOf(p)+String.valueOf(l)+"<1;");
+
 								}
 							}
 						}
@@ -102,7 +103,11 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 							for (int m= 0; m<sequence3.length;m++){
 								for (int n= m; n<sequence3.length;n++){
 									if ((k !=l) || (ii != j)||(m!=n)) {
-										w.write("X"+0+ii+"_"+1+k+"_"+2+m+"+"+"X"+0+j+"_"+1+l+"_"+2+n+ "<2;");
+										w.write("X"+"0"+ii+"_"+"1"+k+"_"+"2"+m+" + "+"X"+"0"+j+"_"+"1"+l+"_"+"2"+n+ "<2;\n");
+										//simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"1"+String.valueOf(k)+"_"+"2"+String.valueOf(m)+"+"+"X"+"0"+String.valueOf(j)+"_"+"1"+String.valueOf(l)+"_"+"2"+String.valueOf(n)+ "<2;");
+										w.write("X"+"0"+ii+"_"+"2"+k+"_"+"1"+m+" + "+"X"+"0"+j+"_"+"2"+l+"_"+"1"+n+ "<2;\n");
+										//simpleMixedCyles3.add("X"+"0"+String.valueOf(ii)+"_"+"2"+String.valueOf(k)+"_"+"1"+String.valueOf(m)+"+"+"X"+"0"+String.valueOf(j)+"_"+"2"+String.valueOf(l)+"_"+"1"+String.valueOf(n)+ "<2;");
+
 									}
 								}
 							}
@@ -110,7 +115,6 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					}
 				}
 			}
-			w.write('\n');
 
 			// 4. write out the binary variable constraints
 			for (int no_seq = 0; no_seq < list.size(); no_seq++) {
@@ -158,6 +162,9 @@ public class AlignmentILP_Auckenthaler_Dittschar {
 					}
 				}
 			}
+			//System.out.println(simpleMixedCyles3.size());
+			//System.out.println(simpleMixedCyles2.size());
+
 		}
 	}
 
