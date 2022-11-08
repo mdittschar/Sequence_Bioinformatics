@@ -51,7 +51,6 @@ public class CountEdgesSimpleMixedCycles_Auckenthaler_Dittschar {
 				}
 			}
 		}
-		System.out.println(numSimpleMixedCycles2);
 		// then compute and add the number of simple mixed cycles that use three cycles
 		int numSimpleMixedCycles3 = 0;
 		numSimpleMixedCycles3= numSimpleMixedCycles2;
