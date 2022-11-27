@@ -5,6 +5,7 @@ import assignment01.FastA_Auckenthaler_Dittschar;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.ArrayList;
 
 /**
  * find occurrences of queries in a text
@@ -27,7 +28,7 @@ public class FindQueries_Auckenthaler_Dittschar {
 		var suffixTree=new NaiveSuffixTree(textItems.get(0).sequence());
 
 		var queryItems=FastA_Auckenthaler_Dittschar.read(args[1]);
-
+		suffixTree.printTree();
 		for(var item:queryItems) {
 			System.out.println("Query "+item.sequence());
 			System.out.println("Contained: "+contains(suffixTree,item.sequence()));
@@ -47,7 +48,23 @@ public class FindQueries_Auckenthaler_Dittschar {
 	 */
 	public static boolean contains(NaiveSuffixTree suffixTree, String query) {
 		// todo: please implement this
+		ArrayList<String> strings = new ArrayList<String>();
+		allstrings = getChildLetters(suffixTree.getRoot(), strings);
+		//suffixTree.printTree();
 		return true;
+	}
+	public static ArrayList<String> getChildLetters(NaiveSuffixTree.Node node, ArrayList strings){
+		ArrayList<String> childstrings = new ArrayList<String>;
+		for (var child : node.getChildren()){
+			System.out.println(child.getLetters());
+			childstrings.add(child.getLetters());
+			for (int i = 0; i < strings.size(); i++) {
+				childstrings.add(child.getLetters());
+			}
+			getChildLetters(child, childstrings);
+		}
+		strings.addAll(childstrings);
+		return strings;
 	}
 
 	/**
