@@ -76,7 +76,38 @@ public class FindQueries_Auckenthaler_Dittschar {
 	 * @return all positions in text at which query occurs
 	 */
 	public static Collection<Integer> find(NaiveSuffixTree suffixTree, String query) {
+		NaiveSuffixTree.Node  node = suffixTree.getRoot();
+		findQueries(node, query);
 		// todo: please implement this
 		return Collections.emptyList();
+	}
+	public static Collection<Integer>findQueries(NaiveSuffixTree.Node node, String query){
+		ArrayList<Integer> positions = new ArrayList<Integer>();
+		for (var child : node.getChildren()){
+			// if the query is longer than the current node
+			if (query.length() > child.getLetters().length()){
+				if (child.getLetters().equals(query.substring(0, child.getLetters().length()))){
+					findQueries(child, query.substring(0, child.getLetters().length()));
+				}
+			}
+			// if the query is shorter than the current node --> used up
+			else{
+				if (query.equals(child.getLetters().substring(0, query.length()))){
+					if (child.getChildren().size() == 0){
+						positions.add(child.getSuffixPos());
+						System.out.println("Children reached. Suffix position: "+child.getSuffixPos());
+					}
+					for (var grandchild : child.getChildren()){
+						if (grandchild.getChildren().size() == 0){
+							grandchild.getSuffixPos();
+							System.out.println("Grandchildren reached. Suffix position: "+grandchild.getSuffixPos());
+						}
+
+					}
+				}
+			}
+
+		}
+		return positions;
 	}
 }

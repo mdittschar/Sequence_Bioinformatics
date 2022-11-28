@@ -50,12 +50,15 @@ public class MUMS_YOUR_NAME {
 	public static void getMumsPastRoot(NaiveSuffixTree.Node node, String string, String firstEntry){
 
 		for (var child : node.getChildren()) {
+			int percent = 0;
+
+			string = string + child.getLetters();
 
 			if (child.getChildren().size() == 2) {
-				string = string + child.getLetters();
+				//string = child.getLetters();
 				System.out.println(child.getLetters()+": This node has two children.");
 				System.out.println(child.getChildren());
-				int percent = 0;
+
 				int[] pos = new int[2];
 				for (var grandchild : child.getChildren()){
 					if (grandchild.getChildren().size() == 0){
@@ -64,7 +67,7 @@ public class MUMS_YOUR_NAME {
 							pos[0] = grandchild.getSuffixPos()+1;
 						}
 						else{
-							pos[1] = grandchild.getSuffixPos()-firstEntry.length();//proper number with strings needs to be inserted
+							pos[1] = grandchild.getSuffixPos()-firstEntry.length();
 						}
 					}
 				}
@@ -72,6 +75,9 @@ public class MUMS_YOUR_NAME {
 					System.out.println("MUM "+string+" at "+pos[0]+" and "+ pos[1]);
 				}
 
+			}
+			if (child.getChildren().size() == 0 && percent != 1){
+				string = "";
 			}
 
 		getMumsPastRoot(child, string, firstEntry);
