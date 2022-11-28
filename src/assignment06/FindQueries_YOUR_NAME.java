@@ -86,18 +86,23 @@ public class FindQueries_Auckenthaler_Dittschar {
 		for (var child : node.getChildren()){
 			// if the query is longer than the current node
 			if (query.length() > child.getLetters().length()){
+				// check that all of the child text matches as a prefix to the query text
 				if (child.getLetters().equals(query.substring(0, child.getLetters().length()))){
-					findQueries(child, query.substring(0, child.getLetters().length()));
+					// if it matches, go one branch deeper to look for the rest of the query
+					findQueries(child, query.substring(child.getLetters().length(), query.length()));
 				}
 			}
 			// if the query is shorter than the current node --> used up
 			else{
+				// check that all of the query matches as a prefix to thhe child text
 				if (query.equals(child.getLetters().substring(0, query.length()))){
+					// if it is a leaf, the correct suffix position should in theory be found
 					if (child.getChildren().size() == 0){
 						positions.add(child.getSuffixPos());
 						System.out.println("Query is: "+query);
 						System.out.println("Children reached. Suffix position: "+child.getSuffixPos());
 					}
+					// if the grandchildren are leaves, the correct suffix position should in theory be found
 					for (var grandchild : child.getChildren()){
 						if (grandchild.getChildren().size() == 0){
 							grandchild.getSuffixPos();
