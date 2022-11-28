@@ -95,6 +95,7 @@ public class FindQueries_Auckenthaler_Dittschar {
 				if (query.equals(child.getLetters().substring(0, query.length()))){
 					if (child.getChildren().size() == 0){
 						positions.add(child.getSuffixPos());
+						System.out.println("Query is: "+query);
 						System.out.println("Children reached. Suffix position: "+child.getSuffixPos());
 					}
 					for (var grandchild : child.getChildren()){
