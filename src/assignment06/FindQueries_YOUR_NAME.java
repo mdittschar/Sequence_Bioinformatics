@@ -48,50 +48,23 @@ public class FindQueries_Auckenthaler_Dittschar {
 	 */
 	public static boolean contains(NaiveSuffixTree suffixTree, String query) {
 		// todo: please implement this
-		query = "ab";
 		boolean isQueryInTree = getChildLetters(suffixTree.getRoot(), query);
-		//suffixTree.printTree();
 		return isQueryInTree;
 	}
 	public static boolean getChildLetters(NaiveSuffixTree.Node node, String query) {
 		boolean result = false;
-		System.out.println("Current query: "+ query);
+		//System.out.println("Current query: "+ query);
 		for (var child : node.getChildren()) {
-
-
-					//ArrayList<String> childstrings = new ArrayList<String>;
-			System.out.println(child.getLetters());
-			System.out.println("Current child.getLetters(): "+child.getLetters());
-			//strings.add(child.getLetters());
-			//strings.add(node.getLetters()+child.getLetters());
-			boolean goOn = false;
 			if (query.length() >= child.getLetters().length()){
-				if (child.getLetters() == query.substring(0, child.getLetters().length())){
-					result = getChildLetters(child, query.substring(child.getLetters().length()-1, query.length()));
+				if (child.getLetters().equals(query.substring(0, child.getLetters().length()))){
+					result = getChildLetters(child, query.substring(child.getLetters().length(), query.length()));
 				}
 			}
-
-			/*if(goOn){
-				result = getChildLetters(child, query.substring(child.getLetters().length()-1, query.length()));
-			}
-			*/
 			if (child.getLetters().length() >= query.length()){
-				System.out.println("Current child: "+child.getLetters().substring(0, query.length()).equals(query));
 				if (query.equals(child.getLetters().substring(0, query.length()))) {
-					System.out.print("True!!! I found something");
-					return true;
+					result = true;
 				}
 			}
-
-
-
-
-			/*if (!child.getLetters().endsWith("$")){
-				getChildLetters(child, strings);
-			}
-			*/
-			result = getChildLetters(child, query);
-			//System.out.println(child.getLetters().endsWith("$"));
 		}
 		return result;
 	}
