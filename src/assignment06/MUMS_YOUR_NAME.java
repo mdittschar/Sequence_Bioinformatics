@@ -41,34 +41,41 @@ public class MUMS_YOUR_NAME {
 		var suffixTree=new NaiveSuffixTree(concatstring);
 		return suffixTree;
 	}
-	public static void getMums(NaiveSuffixTree suffixTree, String string1){
+	public static void getMums(NaiveSuffixTree suffixTree, String firstEntry){
 		NaiveSuffixTree.Node node = suffixTree.getRoot();
 		System.out.println(suffixTree.getRoot().getChildren().size());
-		getMumsPastRoot(node, string1);
+		getMumsPastRoot(node, "", firstEntry);
 
 	}
-	public static void getMumsPastRoot(NaiveSuffixTree.Node node, String string1){
-		int watershed = string1.length();
+	public static void getMumsPastRoot(NaiveSuffixTree.Node node, String string, String firstEntry){
 
 		for (var child : node.getChildren()) {
+
 			if (child.getChildren().size() == 2) {
+				string = string + child.getLetters();
 				System.out.println(child.getLetters()+": This node has two children.");
-
-			}
-
-
-		}
-	}
-	/*public static void checkForTwoAndLeaves(NaiveSuffixTree suffixTree, NaiveSuffixTree.Node child, int watershed, int pos1, int pos2){
-
-			if (suffixTree.getChildren(child).get(pos1).getSuffixPos() > watershed){
-				if (getChildren(child).get(pos2).getSuffixPos() < watershed){
-					System.out.println("MUM found.");
+				System.out.println(child.getChildren());
+				int percent = 0;
+				int[] pos = new int[2];
+				for (var grandchild : child.getChildren()){
+					if (grandchild.getChildren().size() == 0){
+						if (grandchild.getLetters().contains("%")){
+							percent = percent + 1;
+							pos[0] = grandchild.getSuffixPos()+1;
+						}
+						else{
+							pos[1] = grandchild.getSuffixPos()-firstEntry.length();//proper number with strings needs to be inserted
+						}
+					}
 				}
+				if (percent == 1){
+					System.out.println("MUM "+string+" at "+pos[0]+" and "+ pos[1]);
+				}
+
 			}
 
+		getMumsPastRoot(child, string, firstEntry);
+		}
 
 	}
-
-	 */
 }
