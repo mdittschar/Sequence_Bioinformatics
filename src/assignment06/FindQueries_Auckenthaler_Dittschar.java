@@ -32,7 +32,7 @@ public class FindQueries_Auckenthaler_Dittschar {
 		for(var item:queryItems) {
 			System.out.println("Query "+item.sequence());
 			System.out.println("Contained: "+contains(suffixTree,item.sequence()));
-			System.out.print("Occurrences:");
+			System.out.print("Occurrences:\n");
 			for(var pos:find(suffixTree,item.sequence())) {
 				System.out.print(" "+pos);
 			}
@@ -99,14 +99,17 @@ public class FindQueries_Auckenthaler_Dittschar {
 					// if it is a leaf, the correct suffix position should in theory be found
 					if (child.getChildren().size() == 0){
 						positions.add(child.getSuffixPos());
-						System.out.println("Query is: "+query);
-						System.out.println("Children reached. Suffix position: "+child.getSuffixPos());
+						// counting 1-based
+						int loc = child.getSuffixPos() + 1;
+						System.out.println(loc);
 					}
 					// if the grandchildren are leaves, the correct suffix position should in theory be found
 					for (var grandchild : child.getChildren()){
 						if (grandchild.getChildren().size() == 0){
 							grandchild.getSuffixPos();
-							System.out.println("Grandchildren reached. Suffix position: "+grandchild.getSuffixPos());
+							// counting 1-based
+							int pos = grandchild.getSuffixPos()+1;
+							System.out.println(pos);
 						}
 
 					}

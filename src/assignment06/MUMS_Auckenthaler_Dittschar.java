@@ -31,6 +31,7 @@ public class MUMS_Auckenthaler_Dittschar {
 		suffixTree.printTree();
 		// 2. implement algorithm to report all MUMs (of any size)
 		getMums(suffixTree, string1);
+		System.out.println("For "+string1+" and "+string2);
 
 		// output should be:
 		// MUM "GC" at 2 and 2 (1-based)
@@ -43,7 +44,6 @@ public class MUMS_Auckenthaler_Dittschar {
 	}
 	public static void getMums(NaiveSuffixTree suffixTree, String firstEntry){
 		NaiveSuffixTree.Node node = suffixTree.getRoot();
-		System.out.println(suffixTree.getRoot().getChildren().size());
 		getMumsPastRoot(node, "", firstEntry);
 
 	}
@@ -55,9 +55,6 @@ public class MUMS_Auckenthaler_Dittschar {
 			string = string + child.getLetters();
 
 			if (child.getChildren().size() == 2) {
-				//string = child.getLetters();
-				System.out.println(child.getLetters()+": This node has two children.");
-				System.out.println(child.getChildren());
 
 				int[] pos = new int[2];
 				for (var grandchild : child.getChildren()){
@@ -72,7 +69,7 @@ public class MUMS_Auckenthaler_Dittschar {
 					}
 				}
 				if (percent == 1){
-					System.out.println("MUM "+string+" at "+pos[0]+" and "+ pos[1]);
+					System.out.println("MUM "+string+" at "+pos[0]+" and "+ pos[1]+" (1-based)");
 				}
 
 			}
