@@ -2,19 +2,19 @@
 !Title: ;
 !Format DataType=Distance DataFormat=UpperRight NTaxa=13;
 
-[1] #Candidatus Accumulibacter sp. SK-12
-[2] #Candidatus Accumulibacter phosphatis isolate UW-LDO-IC
-[3] #Candidatus Accumulibacter sp. BA-93
-[4] #Candidatus Accumulibacter phosphatis isolate UBA5574
-[5] #Candidatus Accumulibacter sp. BA-92
-[6] #Candidatus Accumulibacter phosphatis isolate UBA2327
-[7] #Xanthomonadales bacterium UBA2790
-[8] #Candidatus Accumulibacter sp. S1 isolate 3 
-[9] #Candidatus Accumulibacter sp. 66-26
-[10] #Candidatus Accumulibacter sp. isolate SCELSE-1
-[11] #Candidatus Accumulibacter phosphatis clade IIA str. UW-1
-[12] #Candidatus Accumulibacter phosphatis strain Bin19 
-[13] #Candidatus Accumulibacter phosphatis isolate HKU-1
+[1] #Candidatus_Accumulibacter_sp._SK-12
+[2] #Candidatus_Accumulibacter_phosphatis_isolate_UW-LDO-IC
+[3] #Candidatus_Accumulibacter_sp._BA-93
+[4] #Candidatus_Accumulibacter_phosphatis_isolate_UBA5574
+[5] #Candidatus_Accumulibacter_sp._BA-92
+[6] #Candidatus_Accumulibacter_phosphatis_isolate_UBA2327
+[7] #Xanthomonadales_bacterium_UBA2790
+[8] #Candidatus_Accumulibacter_sp._S1_isolate_3 
+[9] #Candidatus_Accumulibacter_sp._66-26
+[10] #Candidatus_Accumulibacter_sp._isolate_SCELSE-1
+[11] #Candidatus_Accumulibacter_phosphatis_clade_IIA_str._UW-1
+[12] #Candidatus_Accumulibacter_phosphatis_strain_Bin19 
+[13] #Candidatus_Accumulibacter_phosphatis_isolate_HKU-1
 
 [          1        2        3        4        5        6        7        8        9 	10	11	12	13]
 [1]		0.26396	0.31167	0.25777	0.24704	0.14330	0.39321	0.23797	0.23797	0.14415	0.26396	0.23797	0.24233
