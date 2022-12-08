@@ -14,12 +14,12 @@ import java.util.Set;
 /**
  * implementation of mash sketch and distance calculation
  * Sequence Bioinformatics, WS 22/23
- * Mash_YOUR_NAME
+ * Mash_Auckenthaler_Dittschar
  */
-public class Mash_YOUR_NAME {
+public class Mash_Auckenthaler_Dittschar {
     public static void main(String[] args) throws IOException {
         if (args.length != 3)
-            throw new IOException("Usage: Mash_YOUR_NAME k s directory-of-input-files");
+            throw new IOException("Usage: Mash_Auckenthaler_Dittschar k s directory-of-input-files");
         else
             System.err.printf("Mash k=%s s=%s input-directory=%s%n", args[0], args[1], args[2]);
 
