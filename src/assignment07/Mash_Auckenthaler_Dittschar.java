@@ -101,8 +101,9 @@ public class Mash_Auckenthaler_Dittschar {
             kmer = genome.substring(i, i + k);
             kmer_revcomp = computeReverseComplement(kmer);
             int compare = kmer.compareTo(kmer_revcomp);
-            if (compare <= 0){
+            if (compare >= 0){
                 kmer = kmer_revcomp;
+
             }
             int h = kmer.hashCode();
             if (sketch.size() < s || h < sketch.last()){
@@ -142,6 +143,9 @@ public class Mash_Auckenthaler_Dittschar {
             }
             else if (dna.charAt(i) =='C'){
                 buf.append("G");
+            }
+            else if (dna.charAt(i) == 'N'){
+                buf.append("N");
             }
         }
         // todo: Please implement
