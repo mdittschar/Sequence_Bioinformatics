@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Iterator;
 
 /**
  * proof-of-concept implementation for the basic minimap algorithm
@@ -130,9 +131,9 @@ public class Minimap_Auckenthaler_Dittschar{
 		var sketch=new HashSet<Minimizer>();
 
 		// todo: implement computation of minimizer sketch as described in script (algorithm 1)
-		for (int i=0; i<s.length()-w-k+1;i++){
+		for (int i=1; i<=s.length()-w-k+1;i++){
 			int m = Integer.MAX_VALUE;
-			for(int j=0; j<w-1;j++){
+			for(int j=0; j<=w-1;j++){
 				ArrayList<Integer> uv = new ArrayList<Integer>();
 				int h1 = h(sk(s, i+j, k,0));
 				int h2 = h(sk(s, i+j, k,1));
@@ -143,14 +144,14 @@ public class Minimap_Auckenthaler_Dittschar{
 					m = Math.min(m, Math.min(uv.get(0), uv.get(1)));
 				}
 			}
-			for (int j=0; j < w-1; j++){
+			for (int j=0; j <= w-1; j++){
 				ArrayList<Integer> uv = new ArrayList<Integer>();
 				int h1 = h(sk(s, i+j, k,0));
 				int h2 = h(sk(s, i+j, k,1));
 				if (h1 < h2 && h1 == m){
 					sketch.add(new Minimizer(m, i+j, 0));
 				}
-				else if ( h1 < h2 && h1 == m){
+				else if ( h1 > h2 && h2 == m){
 					sketch.add(new Minimizer(m, i+j, 0));
 				}
 			}
@@ -170,7 +171,16 @@ public class Minimap_Auckenthaler_Dittschar{
 		var targetIndex= new HashMap<Integer,Set<Location>>();
 
 		// todo: implement computation of target index as described in script (algorithm 1)
+		for (int t=0; t< targets.size(); t++){
+			System.out.println(targets.get(t).sequence());
+			Set<Minimizer> minimizerSet = minimizerSketch(targets.get(t).sequence(), w, k);
+			Iterator<Minimizer> itr = minimizerSet.iterator();
 
+			while(itr.hasNext()){
+				System.out.println(itr.next());
+			}
+
+		}
 		return targetIndex;
 	}
 
