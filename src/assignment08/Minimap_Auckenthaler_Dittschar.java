@@ -196,16 +196,37 @@ public class Minimap_Auckenthaler_Dittschar{
 
 		// compute array of k-mer hits:
 		var A=new ArrayList<KMerHit>();
+		var M = minimizerSketch(query, w, k):
 
 		// todo: compute array of k-mer hits (as described in script, algorithm 4, part 1)
+		for(int i1 = 0, i1<M.length, i1++){
+			for (int i2 = 0, i2<targetIndex.length, i2++){
+				if (targetIndex(i1)== targetIndex(i2){
+					// append (t,0,i-i',i') to A
+
+				}
+				else {
+					// append (t,1,i+i',i') to A
+				}
+			}
+
+		}
 
 		A.sort(KMerHit::compareTo);
 
 		// chain k-mer hits into matches and return the matches
 		var result=new ArrayList<Match>();
+		//???
+
 		var b=0;
-		for(var e=0;e<A.size();e++) {
+		for(var e=0;e<=A.size();e++) {
 			// todo: compute matches or ``clusters'' (as described in script, algorithm 4, part;s 2 and 3
+			if ((e= A.size()) || (A(e+1).t !=  A(e).t) ||  (A(e+1).r != A(e).r) || ((A[e+1].c -A[e].c)>= epsilon)){
+				// C= the maximal colinear subset of A[b...e]
+				//print the left- and right most query/target prosition in C
+				b= e+1;
+			}
+
 		}
 		return result;
 	}
