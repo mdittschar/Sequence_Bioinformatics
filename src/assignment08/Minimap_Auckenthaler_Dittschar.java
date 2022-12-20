@@ -93,6 +93,9 @@ public class Minimap_Auckenthaler_Dittschar{
 				} else if (sequence.charAt(pos+k-1-i) == 'C') {
 					buf.append("G");
 				}
+				else if (sequence.charAt(pos+k-1-i) == 'N') {
+				buf.append("N");
+			}
 			}
 			return buf.toString();
 		}
@@ -111,6 +114,7 @@ public class Minimap_Auckenthaler_Dittschar{
 		map.put("C", 1);
 		map.put("G", 2);
 		map.put("T", 3);
+		map.put("N", 0); // no indication given on how to deal with N
 		for (int i=0; i<s.length(); i++){
 			int c = map.get(s.substring(i,i+1));
 			int add = (int) Math.pow(4, s.length()-1-i);
@@ -173,7 +177,6 @@ public class Minimap_Auckenthaler_Dittschar{
 
 		// todo: implement computation of target index as described in script (algorithm 1)
 		for (int t=0; t< targets.size(); t++){
-			System.out.println(targets.get(t).sequence());
 			Set<Minimizer> minimizerSet = minimizerSketch(targets.get(t).sequence(), w, k);
 			Iterator<Minimizer> itr = minimizerSet.iterator();
 
@@ -268,23 +271,27 @@ public class Minimap_Auckenthaler_Dittschar{
 		//System.out.println(A);
 		var b=0;
 		for(var e=0;e<A.size();e++) {
-			Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos  + A.get(e).c, A.get(e).pos + k + A.get(e).c, A.get(e).pos, A.get(e).pos + k);
+			//Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos  + A.get(e).c, A.get(e).pos + k + A.get(e).c, A.get(e).pos, A.get(e).pos + k);
 			// todo: compute matches or ``clusters'' (as described in script, algorithm 4, part;s 2 and 3
 			if (e== A.size()-1 || A.get(e+1).t !=  A.get(e).t || A.get(e+1).r != A.get(e).r || A.get(e+1).c - A.get(e).c >= epsilon){
-				//Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
-				for (int j = b; j<=e; j++) {
-					KMerHit kmer = A.get(j);
-					if (kmer.pos + k > match.qMax){
-						//match.qMin
-					}
+
+				Match match = new Match(A.get(e).t, A.get(e).r, A.get(b).pos + A.get(b).c, A.get(e).pos + k + A.get(e).c, A.get(b).pos, A.get(e).pos + k);
+				Match match2 = new Match(A.get(e).t, A.get(e).r, A.get(b).c - A.get(b).pos, A.get(e).c - A.get(e).pos + k, A.get(b).pos, A.get(e).pos + k);
+
+				if (A.get(e).r == 1){
+					result.add(match2);
+				}
+				else{
+					result.add(match);
+				}
 					// C= the maximal colinear subset of A[b...e]
 					//print the left- and right most query/target prosition in C
 
-				}
 				//result.add(match);
 				b = e + 1;
+
 			}
-			result.add(match);
+
 
 
 		}
