@@ -248,21 +248,6 @@ public class Minimap_Auckenthaler_Dittschar{
 
 			}
 		}
-		// todo: compute array of k-mer hits (as described in script, algorithm 4, part 1)
-		/*for(int i1 = 0; i1<M.length; i1++){
-			for (int i2 = 0; i2<targetIndex.length; i2++){
-				if (targetIndex(i1)== targetIndex(i2)){
-					// append (t,0,i-i',i') to A
-
-				}
-				else {
-					// append (t,1,i+i',i') to A
-				}
-			}
-
-		}
-
-		 */
 
 		A.sort(KMerHit::compareTo);
 
@@ -285,10 +270,6 @@ public class Minimap_Auckenthaler_Dittschar{
 				else{
 					result.add(match);
 				}
-					// C= the maximal colinear subset of A[b...e]
-					//print the left- and right most query/target prosition in C
-
-				//result.add(match);
 				b = e + 1;
 
 			}
