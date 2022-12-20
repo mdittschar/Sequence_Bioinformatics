@@ -59,7 +59,6 @@ public class Minimap_Auckenthaler_Dittschar{
 			var query= record.sequence();
 			System.err.println("\nQuery: "+record.header());
 			var matches=mapQuerySequence(targetIndex,query,w,k,500);
-			System.err.println("Matches: "+matches.size());
 			for(var match:matches) {
 				System.err.println(("Target: %d, query: %d - %d, target: %d - %d, reverse: %d"
 						.formatted(match.t()+1,match.qMin()+ 1, match.qMax()+ 1,match.tMin()+ 1, match.tMax()+ 1,match.r())));
@@ -132,6 +131,7 @@ public class Minimap_Auckenthaler_Dittschar{
 
 		// todo: implement computation of minimizer sketch as described in script (algorithm 1)
 		for (int i=0; i<s.length()-w-k+1;i++){
+			//System.out.println("The length we consider is: "+len);
 			int m = Integer.MAX_VALUE;
 			for(int j=0; j<=w-1;j++){
 				ArrayList<Integer> uv = new ArrayList<Integer>();
@@ -157,6 +157,7 @@ public class Minimap_Auckenthaler_Dittschar{
 			}
 
 		}
+
 		return sketch;
 	}
 
@@ -214,8 +215,8 @@ public class Minimap_Auckenthaler_Dittschar{
 		var A=new ArrayList<KMerHit>();
 		var M = minimizerSketch(query, w, k);
 		Iterator<Minimizer> itr = M.iterator();
-		System.out.println("Minimizer set size: "+M);
-		System.out.println("Targetindex set size: "+targetIndex);
+		//System.out.println("Minimizer set size: "+M);
+		//System.out.println("Targetindex set size: "+targetIndex);
 
 		while(itr.hasNext()){
 			Minimizer curmin = itr.next();
@@ -227,7 +228,14 @@ public class Minimap_Auckenthaler_Dittschar{
 						if (curloc.r == curmin.r){
 							KMerHit kmerHit = new KMerHit(curloc.t, 0, curmin.pos - curloc.pos, curloc.pos);
 							A.add(kmerHit);
+
 						}
+						else {
+							KMerHit kmerHit = new KMerHit(curloc.t, 1, curmin.pos + curloc.pos, curloc.pos);
+							A.add(kmerHit);
+
+						}
+
 					}
 
 				}
@@ -257,10 +265,10 @@ public class Minimap_Auckenthaler_Dittschar{
 		// chain k-mer hits into matches and return the matches
 		var result=new ArrayList<Match>();
 		//???
-		System.out.println(A);
+		//System.out.println(A);
 		var b=0;
 		for(var e=0;e<A.size();e++) {
-			Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
+			Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos  + A.get(e).c, A.get(e).pos + k + A.get(e).c, A.get(e).pos, A.get(e).pos + k);
 			// todo: compute matches or ``clusters'' (as described in script, algorithm 4, part;s 2 and 3
 			if (e== A.size()-1 || A.get(e+1).t !=  A.get(e).t || A.get(e+1).r != A.get(e).r || A.get(e+1).c - A.get(e).c >= epsilon){
 				//Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
