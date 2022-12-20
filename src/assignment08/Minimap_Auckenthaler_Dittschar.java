@@ -131,7 +131,7 @@ public class Minimap_Auckenthaler_Dittschar{
 		var sketch=new HashSet<Minimizer>();
 
 		// todo: implement computation of minimizer sketch as described in script (algorithm 1)
-		for (int i=1; i<=s.length()-w-k+1;i++){
+		for (int i=0; i<s.length()-w-k+1;i++){
 			int m = Integer.MAX_VALUE;
 			for(int j=0; j<=w-1;j++){
 				ArrayList<Integer> uv = new ArrayList<Integer>();
@@ -152,7 +152,7 @@ public class Minimap_Auckenthaler_Dittschar{
 					sketch.add(new Minimizer(m, i+j, 0));
 				}
 				else if ( h1 > h2 && h2 == m){
-					sketch.add(new Minimizer(m, i+j, 0));
+					sketch.add(new Minimizer(m, i+j, 1));
 				}
 			}
 
@@ -214,8 +214,8 @@ public class Minimap_Auckenthaler_Dittschar{
 		var A=new ArrayList<KMerHit>();
 		var M = minimizerSketch(query, w, k);
 		Iterator<Minimizer> itr = M.iterator();
-		System.out.println("Minimizer set size: "+M.size());
-		System.out.println("Targetindex set size: "+targetIndex.size());
+		System.out.println("Minimizer set size: "+M);
+		System.out.println("Targetindex set size: "+targetIndex);
 
 		while(itr.hasNext()){
 			Minimizer curmin = itr.next();
@@ -260,9 +260,10 @@ public class Minimap_Auckenthaler_Dittschar{
 		System.out.println(A);
 		var b=0;
 		for(var e=0;e<A.size();e++) {
+			Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
 			// todo: compute matches or ``clusters'' (as described in script, algorithm 4, part;s 2 and 3
 			if (e== A.size()-1 || A.get(e+1).t !=  A.get(e).t || A.get(e+1).r != A.get(e).r || A.get(e+1).c - A.get(e).c >= epsilon){
-				Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
+				//Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
 				for (int j = b; j<=e; j++) {
 					KMerHit kmer = A.get(j);
 					if (kmer.pos + k > match.qMax){
@@ -272,10 +273,10 @@ public class Minimap_Auckenthaler_Dittschar{
 					//print the left- and right most query/target prosition in C
 
 				}
-				result.add(match);
+				//result.add(match);
 				b = e + 1;
 			}
-
+			result.add(match);
 
 
 		}
