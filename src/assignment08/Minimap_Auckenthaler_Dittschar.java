@@ -54,7 +54,7 @@ public class Minimap_Auckenthaler_Dittschar{
 		System.err.printf(Minimap_Auckenthaler_Dittschar.class.getSimpleName() + " w=%d k=%d targets=%d queries=%d%n", w,k,targets.size(),queries.size());
 
 		var targetIndex=computeTargetIndex(targets,w,k);
-		
+
 		for(var record:queries) {
 			var query= record.sequence();
 			System.err.println("\nQuery: "+record.header());
@@ -213,7 +213,29 @@ public class Minimap_Auckenthaler_Dittschar{
 		// compute array of k-mer hits:
 		var A=new ArrayList<KMerHit>();
 		var M = minimizerSketch(query, w, k);
+		Iterator<Minimizer> itr = M.iterator();
+		System.out.println("Minimizer set size: "+M.size());
+		System.out.println("Targetindex set size: "+targetIndex.size());
 
+		while(itr.hasNext()){
+			Minimizer curmin = itr.next();
+			for (HashMap.Entry<Integer, Set<Location>> entry : targetIndex.entrySet()){
+				if (entry.getKey() == curmin.h){
+					Iterator<Location> locationIterator = entry.getValue().iterator();
+					while (locationIterator.hasNext()){
+						Location curloc = locationIterator.next();
+						if (curloc.r == curmin.r){
+							KMerHit kmerHit = new KMerHit(curloc.t, 0, curmin.pos - curloc.pos, curloc.pos);
+							A.add(kmerHit);
+						}
+					}
+
+				}
+				//System.out.println(entry.getKey() + "/" + entry.getValue());
+
+
+			}
+		}
 		// todo: compute array of k-mer hits (as described in script, algorithm 4, part 1)
 		/*for(int i1 = 0; i1<M.length; i1++){
 			for (int i2 = 0; i2<targetIndex.length; i2++){
@@ -236,8 +258,8 @@ public class Minimap_Auckenthaler_Dittschar{
 		var result=new ArrayList<Match>();
 		//???
 
-		var b=0;
-		for(var e=0;e<=A.size();e++) {
+		/*var b=0;
+		for(var e=0;e<A.size();e++) {
 			// todo: compute matches or ``clusters'' (as described in script, algorithm 4, part;s 2 and 3
 			if (e== A.size() || A.get(e+1).t !=  A.get(e).t || A.get(e+1).r != A.get(e).r|| A.get(e+1).c - A.get(e).c >= epsilon){
 				// C= the maximal colinear subset of A[b...e]
@@ -245,7 +267,9 @@ public class Minimap_Auckenthaler_Dittschar{
 				b= e+1;
 			}
 
-		}
+
+
+		}*/
 		return result;
 	}
 
