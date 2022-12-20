@@ -59,6 +59,7 @@ public class Minimap_Auckenthaler_Dittschar{
 			var query= record.sequence();
 			System.err.println("\nQuery: "+record.header());
 			var matches=mapQuerySequence(targetIndex,query,w,k,500);
+			System.out.println("Matches: "+matches.size());
 			for(var match:matches) {
 				System.err.println(("Target: %d, query: %d - %d, target: %d - %d, reverse: %d"
 						.formatted(match.t()+1,match.qMin()+ 1, match.qMax()+ 1,match.tMin()+ 1, match.tMax()+ 1,match.r())));
