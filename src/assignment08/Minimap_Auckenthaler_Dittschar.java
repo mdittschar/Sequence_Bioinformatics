@@ -257,19 +257,28 @@ public class Minimap_Auckenthaler_Dittschar{
 		// chain k-mer hits into matches and return the matches
 		var result=new ArrayList<Match>();
 		//???
-
-		/*var b=0;
+		System.out.println(A);
+		var b=0;
 		for(var e=0;e<A.size();e++) {
 			// todo: compute matches or ``clusters'' (as described in script, algorithm 4, part;s 2 and 3
-			if (e== A.size() || A.get(e+1).t !=  A.get(e).t || A.get(e+1).r != A.get(e).r|| A.get(e+1).c - A.get(e).c >= epsilon){
-				// C= the maximal colinear subset of A[b...e]
-				//print the left- and right most query/target prosition in C
-				b= e+1;
+			if (e== A.size()-1 || A.get(e+1).t !=  A.get(e).t || A.get(e+1).r != A.get(e).r || A.get(e+1).c - A.get(e).c >= epsilon){
+				Match match = new Match(A.get(e).t, A.get(e).r, A.get(e).pos, A.get(e).pos + k, A.get(e).pos - A.get(e).c, A.get(e).pos - A.get(e).c + k);
+				for (int j = b; j<=e; j++) {
+					KMerHit kmer = A.get(j);
+					if (kmer.pos + k > match.qMax){
+						//match.qMin
+					}
+					// C= the maximal colinear subset of A[b...e]
+					//print the left- and right most query/target prosition in C
+
+				}
+				result.add(match);
+				b = e + 1;
 			}
 
 
 
-		}*/
+		}
 		return result;
 	}
 
